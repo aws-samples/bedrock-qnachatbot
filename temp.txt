@@ -1,0 +1,1195 @@
+SquareFeet: 2126
+Bedrooms: 4
+Bathrooms: 1
+Neighborhood: Rural
+YearBuilt: 1969
+Price: 215355.28361820100
+: SquareFeet: 2459
+Bedrooms: 3
+Bathrooms: 2
+Neighborhood: Rural
+YearBuilt: 1980
+Price: 195014.22162584800
+: SquareFeet: 1860
+Bedrooms: 2
+Bathrooms: 1
+Neighborhood: Suburb
+YearBuilt: 1970
+Price: 306891.0120763330
+: SquareFeet: 2294
+Bedrooms: 2
+Bathrooms: 1
+Neighborhood: Urban
+YearBuilt: 1996
+Price: 206786.78715332700
+: SquareFeet: 2130
+Bedrooms: 5
+Bathrooms: 2
+Neighborhood: Suburb
+YearBuilt: 2001
+Price: 272436.239065061
+: SquareFeet: 2095
+Bedrooms: 2
+Bathrooms: 3
+Neighborhood: Suburb
+YearBuilt: 2020
+Price: 198208.80390657100
+: SquareFeet: 2724
+Bedrooms: 2
+Bathrooms: 1
+Neighborhood: Suburb
+YearBuilt: 1993
+Price: 343429.3191099180
+: SquareFeet: 2044
+Bedrooms: 4
+Bathrooms: 3
+Neighborhood: Rural
+YearBuilt: 1957
+Price: 184992.321268412
+: SquareFeet: 2638
+Bedrooms: 4
+Bathrooms: 3
+Neighborhood: Urban
+YearBuilt: 1959
+Price: 377998.58815204100
+: SquareFeet: 1121
+Bedrooms: 5
+Bathrooms: 2
+Neighborhood: Urban
+YearBuilt: 2004
+Price: 95961.92601406390
+: SquareFeet: 1466
+Bedrooms: 5
+Bathrooms: 3
+Neighborhood: Suburb
+YearBuilt: 1951
+Price: 191113.76867886000
+: SquareFeet: 2238
+Bedrooms: 3
+Bathrooms: 3
+Neighborhood: Suburb
+YearBuilt: 1987
+Price: 253358.64500167400
+: SquareFeet: 1330
+Bedrooms: 2
+Bathrooms: 2
+Neighborhood: Suburb
+YearBuilt: 1992
+Price: 132172.3926169810
+: SquareFeet: 2482
+Bedrooms: 4
+Bathrooms: 3
+Neighborhood: Suburb
+YearBuilt: 1989
+Price: 231157.02767588600
+: SquareFeet: 1087
+Bedrooms: 4
+Bathrooms: 1
+Neighborhood: Urban
+YearBuilt: 1976
+Price: 118393.82316264400
+: SquareFeet: 2396
+Bedrooms: 2
+Bathrooms: 2
+Neighborhood: Suburb
+YearBuilt: 1993
+Price: 267377.3996858500
+: SquareFeet: 2123
+Bedrooms: 5
+Bathrooms: 2
+Neighborhood: Rural
+YearBuilt: 1956
+Price: 190773.14856300600
+: SquareFeet: 1871
+Bedrooms: 4
+Bathrooms: 2
+Neighborhood: Suburb
+YearBuilt: 1977
+Price: 172989.80490101500
+: SquareFeet: 2687
+Bedrooms: 5
+Bathrooms: 1
+Neighborhood: Urban
+YearBuilt: 1979
+Price: 239222.66779695000
+: SquareFeet: 1130
+Bedrooms: 4
+Bathrooms: 3
+Neighborhood: Rural
+YearBuilt: 1962
+Price: 143050.20178240200
+: SquareFeet: 2685
+Bedrooms: 4
+Bathrooms: 3
+Neighborhood: Urban
+YearBuilt: 1999
+Price: 405523.82831734000
+: SquareFeet: 2332
+Bedrooms: 3
+Bathrooms: 3
+Neighborhood: Rural
+YearBuilt: 1978
+Price: 263954.15406277100
+: SquareFeet: 1769
+Bedrooms: 4
+Bathrooms: 1
+Neighborhood: Suburb
+YearBuilt: 1963
+Price: 148310.62016790500
+: SquareFeet: 1343
+Bedrooms: 2
+Bathrooms: 3
+Neighborhood: Rural
+YearBuilt: 2013
+Price: 151733.92248999200
+: SquareFeet: 2515
+Bedrooms: 2
+Bathrooms: 3
+Neighborhood: Urban
+YearBuilt: 2013
+Price: 307961.10738239500
+: SquareFeet: 2437
+Bedrooms: 2
+Bathrooms: 1
+Neighborhood: Rural
+YearBuilt: 2004
+Price: 276162.86180465300
+: SquareFeet: 1805
+Bedrooms: 5
+Bathrooms: 1
+Neighborhood: Rural
+YearBuilt: 2002
+Price: 243985.2054715820
+: SquareFeet: 1385
+Bedrooms: 4
+Bathrooms: 3
+Neighborhood: Rural
+YearBuilt: 1996
+Price: 88030.54185271680
+: SquareFeet: 2215
+Bedrooms: 5
+Bathrooms: 1
+Neighborhood: Urban
+YearBuilt: 1952
+Price: 282908.98169371600
+: SquareFeet: 1955
+Bedrooms: 3
+Bathrooms: 1
+Neighborhood: Rural
+YearBuilt: 2014
+Price: 240976.55176671100
+: SquareFeet: 1276
+Bedrooms: 4
+Bathrooms: 1
+Neighborhood: Rural
+YearBuilt: 1965
+Price: 104747.33458905000
+: SquareFeet: 2184
+Bedrooms: 2
+Bathrooms: 2
+Neighborhood: Suburb
+YearBuilt: 1959
+Price: 347207.38956128400
+: SquareFeet: 1459
+Bedrooms: 3
+Bathrooms: 2
+Neighborhood: Rural
+YearBuilt: 2006
+Price: 77493.9314389322
+: SquareFeet: 2337
+Bedrooms: 3
+Bathrooms: 3
+Neighborhood: Suburb
+YearBuilt: 2008
+Price: 331851.0816694100
+: SquareFeet: 1021
+Bedrooms: 4
+Bathrooms: 3
+Neighborhood: Rural
+YearBuilt: 2013
+Price: 110408.67080143400
+: SquareFeet: 1252
+Bedrooms: 2
+Bathrooms: 1
+Neighborhood: Urban
+YearBuilt: 1993
+Price: 127932.75677961800
+: SquareFeet: 1747
+Bedrooms: 5
+Bathrooms: 3
+Neighborhood: Rural
+YearBuilt: 1982
+Price: 228683.22699618800
+: SquareFeet: 1856
+Bedrooms: 4
+Bathrooms: 2
+Neighborhood: Rural
+YearBuilt: 1959
+Price: 124711.70785494700
+: SquareFeet: 2584
+Bedrooms: 2
+Bathrooms: 3
+Neighborhood: Suburb
+YearBuilt: 2001
+Price: 415850.77083678100
+: SquareFeet: 1474
+Bedrooms: 3
+Bathrooms: 3
+Neighborhood: Urban
+YearBuilt: 1959
+Price: 184819.96119001500
+: SquareFeet: 2082
+Bedrooms: 4
+Bathrooms: 2
+Neighborhood: Suburb
+YearBuilt: 1966
+Price: 164855.98777549100
+: SquareFeet: 1510
+Bedrooms: 3
+Bathrooms: 2
+Neighborhood: Suburb
+YearBuilt: 2002
+Price: 156928.01471681400
+: SquareFeet: 2705
+Bedrooms: 2
+Bathrooms: 1
+Neighborhood: Urban
+YearBuilt: 1971
+Price: 282457.8613741380
+: SquareFeet: 2499
+Bedrooms: 5
+Bathrooms: 1
+Neighborhood: Urban
+YearBuilt: 2021
+Price: 287591.6728221960
+: SquareFeet: 1699
+Bedrooms: 5
+Bathrooms: 1
+Neighborhood: Rural
+YearBuilt: 1960
+Price: 156313.5941951280
+: SquareFeet: 1975
+Bedrooms: 3
+Bathrooms: 3
+Neighborhood: Suburb
+YearBuilt: 2016
+Price: 279764.3710402290
+: SquareFeet: 2806
+Bedrooms: 3
+Bathrooms: 3
+Neighborhood: Suburb
+YearBuilt: 1962
+Price: 366494.48060208900
+: SquareFeet: 1189
+Bedrooms: 3
+Bathrooms: 3
+Neighborhood: Urban
+YearBuilt: 2007
+Price: 244539.28168903300
+: SquareFeet: 1957
+Bedrooms: 4
+Bathrooms: 2
+Neighborhood: Rural
+YearBuilt: 1994
+Price: 239299.9944944990
+: SquareFeet: 1686
+Bedrooms: 2
+Bathrooms: 3
+Neighborhood: Urban
+YearBuilt: 1994
+Price: 249148.34468610100
+: SquareFeet: 1957
+Bedrooms: 3
+Bathrooms: 2
+Neighborhood: Rural
+YearBuilt: 1992
+Price: 304197.5798399540
+: SquareFeet: 1562
+Bedrooms: 3
+Bathrooms: 3
+Neighborhood: Rural
+YearBuilt: 2013
+Price: 89378.55062087670
+: SquareFeet: 2899
+Bedrooms: 3
+Bathrooms: 3
+Neighborhood: Rural
+YearBuilt: 1988
+Price: 427295.4046033160
+: SquareFeet: 2590
+Bedrooms: 5
+Bathrooms: 2
+Neighborhood: Suburb
+YearBuilt: 1957
+Price: 328501.8015463280
+: SquareFeet: 2267
+Bedrooms: 3
+Bathrooms: 2
+Neighborhood: Urban
+YearBuilt: 1989
+Price: 215867.41898458200
+: SquareFeet: 1831
+Bedrooms: 2
+Bathrooms: 2
+Neighborhood: Rural
+YearBuilt: 2000
+Price: 190058.8928999780
+: SquareFeet: 2528
+Bedrooms: 5
+Bathrooms: 1
+Neighborhood: Urban
+YearBuilt: 1969
+Price: 259751.15444635900
+: SquareFeet: 2154
+Bedrooms: 2
+Bathrooms: 1
+Neighborhood: Rural
+YearBuilt: 2015
+Price: 166810.3886512710
+: SquareFeet: 2508
+Bedrooms: 5
+Bathrooms: 3
+Neighborhood: Suburb
+YearBuilt: 2007
+Price: 352932.1624639030
+: SquareFeet: 2842
+Bedrooms: 5
+Bathrooms: 3
+Neighborhood: Urban
+YearBuilt: 2014
+Price: 422042.91851435700
+: SquareFeet: 1646
+Bedrooms: 4
+Bathrooms: 3
+Neighborhood: Suburb
+YearBuilt: 1994
+Price: 91423.61964633200
+: SquareFeet: 1020
+Bedrooms: 5
+Bathrooms: 1
+Neighborhood: Rural
+YearBuilt: 1983
+Price: 220053.8603574220
+: SquareFeet: 1840
+Bedrooms: 5
+Bathrooms: 3
+Neighborhood: Suburb
+YearBuilt: 1961
+Price: 216148.20845399600
+: SquareFeet: 1166
+Bedrooms: 2
+Bathrooms: 2
+Neighborhood: Suburb
+YearBuilt: 1972
+Price: 161587.15372788300
+: SquareFeet: 2297
+Bedrooms: 2
+Bathrooms: 2
+Neighborhood: Urban
+YearBuilt: 2017
+Price: 194967.90947111300
+: SquareFeet: 1387
+Bedrooms: 3
+Bathrooms: 1
+Neighborhood: Rural
+YearBuilt: 2002
+Price: 152828.72029115200
+: SquareFeet: 1600
+Bedrooms: 4
+Bathrooms: 2
+Neighborhood: Rural
+YearBuilt: 2002
+Price: 256725.98094361800
+: SquareFeet: 1315
+Bedrooms: 5
+Bathrooms: 2
+Neighborhood: Suburb
+YearBuilt: 1989
+Price: 98039.30310069740
+: SquareFeet: 1013
+Bedrooms: 4
+Bathrooms: 3
+Neighborhood: Urban
+YearBuilt: 2002
+Price: 164858.18694892100
+: SquareFeet: 1241
+Bedrooms: 3
+Bathrooms: 2
+Neighborhood: Urban
+YearBuilt: 1985
+Price: 199373.18209909200
+: SquareFeet: 1776
+Bedrooms: 4
+Bathrooms: 2
+Neighborhood: Urban
+YearBuilt: 2014
+Price: 181245.4467436540
+: SquareFeet: 2369
+Bedrooms: 5
+Bathrooms: 1
+Neighborhood: Suburb
+YearBuilt: 1963
+Price: 209700.7184829430
+: SquareFeet: 1564
+Bedrooms: 2
+Bathrooms: 2
+Neighborhood: Rural
+YearBuilt: 1983
+Price: 163053.3920501940
+: SquareFeet: 1897
+Bedrooms: 4
+Bathrooms: 2
+Neighborhood: Rural
+YearBuilt: 1975
+Price: 304004.68986597800
+: SquareFeet: 2363
+Bedrooms: 5
+Bathrooms: 3
+Neighborhood: Urban
+YearBuilt: 2004
+Price: 308830.9396512380
+: SquareFeet: 1091
+Bedrooms: 3
+Bathrooms: 3
+Neighborhood: Urban
+YearBuilt: 2012
+Price: 194294.00184175
+: SquareFeet: 2390
+Bedrooms: 5
+Bathrooms: 3
+Neighborhood: Urban
+YearBuilt: 2019
+Price: 172777.3198326150
+: SquareFeet: 1955
+Bedrooms: 4
+Bathrooms: 1
+Neighborhood: Suburb
+YearBuilt: 1995
+Price: 197656.07026552500
+: SquareFeet: 2478
+Bedrooms: 5
+Bathrooms: 3
+Neighborhood: Urban
+YearBuilt: 1986
+Price: 273365.49912049400
+: SquareFeet: 2451
+Bedrooms: 5
+Bathrooms: 2
+Neighborhood: Rural
+YearBuilt: 1972
+Price: 216047.21814964000
+: SquareFeet: 1508
+Bedrooms: 4
+Bathrooms: 1
+Neighborhood: Urban
+YearBuilt: 1965
+Price: 149586.15312931300
+: SquareFeet: 1775
+Bedrooms: 4
+Bathrooms: 2
+Neighborhood: Suburb
+YearBuilt: 1981
+Price: 214171.08224172700
+: SquareFeet: 2966
+Bedrooms: 3
+Bathrooms: 2
+Neighborhood: Rural
+YearBuilt: 1956
+Price: 277419.0001600790
+: SquareFeet: 1034
+Bedrooms: 5
+Bathrooms: 3
+Neighborhood: Rural
+YearBuilt: 1993
+Price: 117295.37520060800
+: SquareFeet: 1205
+Bedrooms: 2
+Bathrooms: 1
+Neighborhood: Urban
+YearBuilt: 1996
+Price: 180760.86745311200
+: SquareFeet: 2104
+Bedrooms: 4
+Bathrooms: 1
+Neighborhood: Suburb
+YearBuilt: 1954
+Price: 202715.16014761000
+: SquareFeet: 2955
+Bedrooms: 5
+Bathrooms: 3
+Neighborhood: Rural
+YearBuilt: 2012
+Price: 378403.5710107570
+: SquareFeet: 2585
+Bedrooms: 2
+Bathrooms: 1
+Neighborhood: Suburb
+YearBuilt: 1961
+Price: 257776.09242432100
+: SquareFeet: 2895
+Bedrooms: 2
+Bathrooms: 2
+Neighborhood: Suburb
+YearBuilt: 2021
+Price: 266046.87792908500
+: SquareFeet: 2411
+Bedrooms: 5
+Bathrooms: 1
+Neighborhood: Rural
+YearBuilt: 1958
+Price: 337645.67623531300
+: SquareFeet: 2025
+Bedrooms: 5
+Bathrooms: 2
+Neighborhood: Rural
+YearBuilt: 1993
+Price: 240145.9702539120
+: SquareFeet: 2021
+Bedrooms: 5
+Bathrooms: 1
+Neighborhood: Suburb
+YearBuilt: 1971
+Price: 92641.62211021260
+: SquareFeet: 2413
+Bedrooms: 2
+Bathrooms: 1
+Neighborhood: Urban
+YearBuilt: 1995
+Price: 152037.88283583600
+: SquareFeet: 1565
+Bedrooms: 5
+Bathrooms: 3
+Neighborhood: Rural
+YearBuilt: 1957
+Price: 149848.61640852400
+: SquareFeet: 2129
+Bedrooms: 4
+Bathrooms: 3
+Neighborhood: Urban
+YearBuilt: 2005
+Price: 220384.43445019700
+: SquareFeet: 2795
+Bedrooms: 2
+Bathrooms: 1
+Neighborhood: Rural
+YearBuilt: 1977
+Price: 305658.56385268400
+: SquareFeet: 2845
+Bedrooms: 4
+Bathrooms: 2
+Neighborhood: Urban
+YearBuilt: 1996
+Price: 318297.25657762000
+: SquareFeet: 2500
+Bedrooms: 4
+Bathrooms: 3
+Neighborhood: Rural
+YearBuilt: 1984
+Price: 230749.27633657100
+: SquareFeet: 1702
+Bedrooms: 5
+Bathrooms: 3
+Neighborhood: Urban
+YearBuilt: 1970
+Price: 201925.84088885200
+: SquareFeet: 1401
+Bedrooms: 4
+Bathrooms: 3
+Neighborhood: Suburb
+YearBuilt: 1982
+Price: 149576.68114338400
+: SquareFeet: 1729
+Bedrooms: 5
+Bathrooms: 1
+Neighborhood: Rural
+YearBuilt: 2019
+Price: 171877.06629783400
+: SquareFeet: 2579
+Bedrooms: 2
+Bathrooms: 2
+Neighborhood: Urban
+YearBuilt: 1997
+Price: 245276.73391788100
+: SquareFeet: 1161
+Bedrooms: 4
+Bathrooms: 2
+Neighborhood: Suburb
+YearBuilt: 2003
+Price: 288571.1271841180
+: SquareFeet: 1201
+Bedrooms: 5
+Bathrooms: 1
+Neighborhood: Urban
+YearBuilt: 1951
+Price: 87804.5603712397
+: SquareFeet: 2981
+Bedrooms: 3
+Bathrooms: 2
+Neighborhood: Rural
+YearBuilt: 1982
+Price: 267127.0106286390
+: SquareFeet: 1995
+Bedrooms: 5
+Bathrooms: 3
+Neighborhood: Suburb
+YearBuilt: 1965
+Price: 221217.76933158600
+: SquareFeet: 1269
+Bedrooms: 3
+Bathrooms: 2
+Neighborhood: Suburb
+YearBuilt: 1999
+Price: 218784.63298580700
+: SquareFeet: 2886
+Bedrooms: 5
+Bathrooms: 3
+Neighborhood: Rural
+YearBuilt: 1969
+Price: 315607.02376495900
+: SquareFeet: 1815
+Bedrooms: 3
+Bathrooms: 3
+Neighborhood: Urban
+YearBuilt: 2016
+Price: 217967.92847377800
+: SquareFeet: 2294
+Bedrooms: 4
+Bathrooms: 1
+Neighborhood: Rural
+YearBuilt: 1994
+Price: 353343.63401135300
+: SquareFeet: 1455
+Bedrooms: 3
+Bathrooms: 3
+Neighborhood: Urban
+YearBuilt: 1984
+Price: 187002.96390785500
+: SquareFeet: 2485
+Bedrooms: 4
+Bathrooms: 2
+Neighborhood: Rural
+YearBuilt: 1978
+Price: 222855.08329639900
+: SquareFeet: 2750
+Bedrooms: 4
+Bathrooms: 2
+Neighborhood: Rural
+YearBuilt: 1994
+Price: 366548.8223262030
+: SquareFeet: 2275
+Bedrooms: 5
+Bathrooms: 2
+Neighborhood: Rural
+YearBuilt: 1964
+Price: 259473.27933704800
+: SquareFeet: 2016
+Bedrooms: 4
+Bathrooms: 2
+Neighborhood: Urban
+YearBuilt: 1952
+Price: 212440.42239452500
+: SquareFeet: 2725
+Bedrooms: 2
+Bathrooms: 2
+Neighborhood: Urban
+YearBuilt: 2018
+Price: 237066.6856356930
+: SquareFeet: 1295
+Bedrooms: 3
+Bathrooms: 3
+Neighborhood: Urban
+YearBuilt: 1983
+Price: 158357.6480582800
+: SquareFeet: 2748
+Bedrooms: 5
+Bathrooms: 1
+Neighborhood: Suburb
+YearBuilt: 2020
+Price: 255619.99775314300
+: SquareFeet: 1719
+Bedrooms: 4
+Bathrooms: 1
+Neighborhood: Suburb
+YearBuilt: 1953
+Price: 190659.43496867100
+: SquareFeet: 2772
+Bedrooms: 3
+Bathrooms: 2
+Neighborhood: Urban
+YearBuilt: 1968
+Price: 284985.43569363700
+: SquareFeet: 1337
+Bedrooms: 3
+Bathrooms: 3
+Neighborhood: Urban
+YearBuilt: 1970
+Price: 214741.228522745
+: SquareFeet: 1878
+Bedrooms: 2
+Bathrooms: 1
+Neighborhood: Suburb
+YearBuilt: 1964
+Price: 128693.02879404800
+: SquareFeet: 2076
+Bedrooms: 3
+Bathrooms: 2
+Neighborhood: Rural
+YearBuilt: 1966
+Price: 184051.98271688700
+: SquareFeet: 1791
+Bedrooms: 5
+Bathrooms: 3
+Neighborhood: Rural
+YearBuilt: 2003
+Price: 242865.26019001000
+: SquareFeet: 2945
+Bedrooms: 5
+Bathrooms: 1
+Neighborhood: Urban
+YearBuilt: 1986
+Price: 295356.77549321800
+: SquareFeet: 1216
+Bedrooms: 4
+Bathrooms: 3
+Neighborhood: Rural
+YearBuilt: 2003
+Price: 107868.93208831900
+: SquareFeet: 1763
+Bedrooms: 4
+Bathrooms: 2
+Neighborhood: Urban
+YearBuilt: 1971
+Price: 207380.13609180800
+: SquareFeet: 1187
+Bedrooms: 5
+Bathrooms: 3
+Neighborhood: Suburb
+YearBuilt: 1957
+Price: 132828.81413178400
+: SquareFeet: 1379
+Bedrooms: 3
+Bathrooms: 1
+Neighborhood: Urban
+YearBuilt: 1960
+Price: 84493.6913127725
+: SquareFeet: 1492
+Bedrooms: 3
+Bathrooms: 1
+Neighborhood: Suburb
+YearBuilt: 2019
+Price: 53360.86540604880
+: SquareFeet: 2064
+Bedrooms: 2
+Bathrooms: 3
+Neighborhood: Rural
+YearBuilt: 1958
+Price: 296199.3496255560
+: SquareFeet: 2180
+Bedrooms: 4
+Bathrooms: 1
+Neighborhood: Urban
+YearBuilt: 1951
+Price: 273924.557395998
+: SquareFeet: 1014
+Bedrooms: 3
+Bathrooms: 3
+Neighborhood: Urban
+YearBuilt: 1981
+Price: 204340.7258965050
+: SquareFeet: 2836
+Bedrooms: 3
+Bathrooms: 3
+Neighborhood: Urban
+YearBuilt: 2000
+Price: 228582.09695972000
+: SquareFeet: 1064
+Bedrooms: 4
+Bathrooms: 2
+Neighborhood: Suburb
+YearBuilt: 1986
+Price: 237384.3466275040
+: SquareFeet: 2880
+Bedrooms: 5
+Bathrooms: 2
+Neighborhood: Rural
+YearBuilt: 1955
+Price: 312245.8679787150
+: SquareFeet: 2862
+Bedrooms: 3
+Bathrooms: 3
+Neighborhood: Urban
+YearBuilt: 1961
+Price: 219408.62496043200
+: SquareFeet: 1520
+Bedrooms: 2
+Bathrooms: 1
+Neighborhood: Rural
+YearBuilt: 2003
+Price: 201334.94160447200
+: SquareFeet: 2367
+Bedrooms: 3
+Bathrooms: 2
+Neighborhood: Suburb
+YearBuilt: 1995
+Price: 221413.57760818700
+: SquareFeet: 2152
+Bedrooms: 3
+Bathrooms: 1
+Neighborhood: Rural
+YearBuilt: 1982
+Price: 306839.62194227800
+: SquareFeet: 1647
+Bedrooms: 2
+Bathrooms: 3
+Neighborhood: Urban
+YearBuilt: 1967
+Price: 126756.3572316610
+: SquareFeet: 2495
+Bedrooms: 5
+Bathrooms: 1
+Neighborhood: Urban
+YearBuilt: 1987
+Price: 328702.8347369160
+: SquareFeet: 2086
+Bedrooms: 2
+Bathrooms: 1
+Neighborhood: Suburb
+YearBuilt: 2008
+Price: 141074.02839361300
+: SquareFeet: 2162
+Bedrooms: 2
+Bathrooms: 3
+Neighborhood: Rural
+YearBuilt: 1956
+Price: 220712.46134879700
+: SquareFeet: 2522
+Bedrooms: 4
+Bathrooms: 2
+Neighborhood: Urban
+YearBuilt: 1964
+Price: 319176.8398973250
+: SquareFeet: 1592
+Bedrooms: 3
+Bathrooms: 2
+Neighborhood: Suburb
+YearBuilt: 1950
+Price: 245299.2098929520
+: SquareFeet: 1391
+Bedrooms: 5
+Bathrooms: 1
+Neighborhood: Rural
+YearBuilt: 1995
+Price: 51154.13113008730
+: SquareFeet: 2698
+Bedrooms: 3
+Bathrooms: 3
+Neighborhood: Urban
+YearBuilt: 1981
+Price: 314018.0283390550
+: SquareFeet: 1418
+Bedrooms: 5
+Bathrooms: 3
+Neighborhood: Suburb
+YearBuilt: 1998
+Price: 222904.25800629300
+: SquareFeet: 1288
+Bedrooms: 2
+Bathrooms: 2
+Neighborhood: Suburb
+YearBuilt: 1959
+Price: 115697.77821526600
+: SquareFeet: 1378
+Bedrooms: 4
+Bathrooms: 3
+Neighborhood: Suburb
+YearBuilt: 1966
+Price: 140714.77037514700
+: SquareFeet: 2796
+Bedrooms: 2
+Bathrooms: 3
+Neighborhood: Suburb
+YearBuilt: 1969
+Price: 178353.14814536400
+: SquareFeet: 2513
+Bedrooms: 3
+Bathrooms: 1
+Neighborhood: Suburb
+YearBuilt: 2000
+Price: 280022.0311214730
+: SquareFeet: 1230
+Bedrooms: 4
+Bathrooms: 1
+Neighborhood: Rural
+YearBuilt: 1971
+Price: 136418.4807787990
+: SquareFeet: 2017
+Bedrooms: 4
+Bathrooms: 2
+Neighborhood: Urban
+YearBuilt: 1969
+Price: 195803.97033590700
+: SquareFeet: 1040
+Bedrooms: 3
+Bathrooms: 2
+Neighborhood: Rural
+YearBuilt: 2014
+Price: 98933.43906530600
+: SquareFeet: 2051
+Bedrooms: 5
+Bathrooms: 1
+Neighborhood: Suburb
+YearBuilt: 1953
+Price: 185052.5631740860
+: SquareFeet: 1134
+Bedrooms: 4
+Bathrooms: 3
+Neighborhood: Urban
+YearBuilt: 2003
+Price: 160764.43940878000
+: SquareFeet: 1200
+Bedrooms: 5
+Bathrooms: 3
+Neighborhood: Suburb
+YearBuilt: 2014
+Price: 156394.27348181100
+: SquareFeet: 2863
+Bedrooms: 5
+Bathrooms: 1
+Neighborhood: Suburb
+YearBuilt: 2000
+Price: 333464.1490294490
+: SquareFeet: 1779
+Bedrooms: 5
+Bathrooms: 1
+Neighborhood: Urban
+YearBuilt: 1960
+Price: 211994.3281859910
+: SquareFeet: 1929
+Bedrooms: 4
+Bathrooms: 1
+Neighborhood: Rural
+YearBuilt: 1976
+Price: 252779.69087222800
+: SquareFeet: 2056
+Bedrooms: 2
+Bathrooms: 1
+Neighborhood: Urban
+YearBuilt: 1975
+Price: 288750.4043072760
+: SquareFeet: 2071
+Bedrooms: 4
+Bathrooms: 3
+Neighborhood: Rural
+YearBuilt: 1966
+Price: 185482.06063162300
+: SquareFeet: 1502
+Bedrooms: 2
+Bathrooms: 3
+Neighborhood: Suburb
+YearBuilt: 1991
+Price: 119671.36894790300
+: SquareFeet: 1406
+Bedrooms: 4
+Bathrooms: 2
+Neighborhood: Suburb
+YearBuilt: 1997
+Price: 148891.4193350200
+: SquareFeet: 2597
+Bedrooms: 2
+Bathrooms: 1
+Neighborhood: Rural
+YearBuilt: 1982
+Price: 235810.22355681500
+: SquareFeet: 2751
+Bedrooms: 2
+Bathrooms: 2
+Neighborhood: Suburb
+YearBuilt: 2010
+Price: 357765.11724448400
+: SquareFeet: 1804
+Bedrooms: 4
+Bathrooms: 3
+Neighborhood: Rural
+YearBuilt: 1978
+Price: 216771.35995628800
+: SquareFeet: 1098
+Bedrooms: 5
+Bathrooms: 2
+Neighborhood: Rural
+YearBuilt: 2012
+Price: 102580.49836622800
+: SquareFeet: 1683
+Bedrooms: 5
+Bathrooms: 3
+Neighborhood: Urban
+YearBuilt: 1986
+Price: 208774.14233121500
+: SquareFeet: 2895
+Bedrooms: 2
+Bathrooms: 3
+Neighborhood: Suburb
+YearBuilt: 2005
+Price: 302454.6401474590
+: SquareFeet: 1725
+Bedrooms: 3
+Bathrooms: 2
+Neighborhood: Urban
+YearBuilt: 1965
+Price: 208558.78172335400
+: SquareFeet: 2570
+Bedrooms: 3
+Bathrooms: 2
+Neighborhood: Urban
+YearBuilt: 2005
+Price: 276434.5399454460
+: SquareFeet: 1960
+Bedrooms: 4
+Bathrooms: 1
+Neighborhood: Suburb
+YearBuilt: 1991
+Price: 220786.7119550850
+: SquareFeet: 2762
+Bedrooms: 4
+Bathrooms: 3
+Neighborhood: Urban
+YearBuilt: 1973
+Price: 354268.47524739600
+: SquareFeet: 1612
+Bedrooms: 4
+Bathrooms: 1
+Neighborhood: Suburb
+YearBuilt: 2018
+Price: 142420.97226095300
+: SquareFeet: 2966
+Bedrooms: 3
+Bathrooms: 1
+Neighborhood: Suburb
+YearBuilt: 1980
+Price: 299146.59537507100
+: SquareFeet: 2485
+Bedrooms: 5
+Bathrooms: 3
+Neighborhood: Urban
+YearBuilt: 1960
+Price: 321647.4526525700
+: SquareFeet: 1642
+Bedrooms: 4
+Bathrooms: 2
+Neighborhood: Suburb
+YearBuilt: 1951
+Price: 216976.90806023700
+: SquareFeet: 2792
+Bedrooms: 4
+Bathrooms: 1
+Neighborhood: Suburb
+YearBuilt: 2020
+Price: 243179.70337320000
+: SquareFeet: 2028
+Bedrooms: 5
+Bathrooms: 1
+Neighborhood: Suburb
+YearBuilt: 1984
+Price: 184210.77355558600
+: SquareFeet: 2241
+Bedrooms: 2
+Bathrooms: 3
+Neighborhood: Suburb
+YearBuilt: 2011
+Price: 175779.56815188600
+: SquareFeet: 1502
+Bedrooms: 4
+Bathrooms: 2
+Neighborhood: Urban
+YearBuilt: 2003
+Price: 162271.08640490000
+: SquareFeet: 1766
+Bedrooms: 3
+Bathrooms: 2
+Neighborhood: Rural
+YearBuilt: 2018
+Price: 240727.03972085600
+: SquareFeet: 1397
+Bedrooms: 3
+Bathrooms: 1
+Neighborhood: Urban
+YearBuilt: 2000
+Price: 186900.94639311900
+: SquareFeet: 1870
+Bedrooms: 4
+Bathrooms: 3
+Neighborhood: Rural
+YearBuilt: 1958
+Price: 208692.1497994110
+: SquareFeet: 1794
+Bedrooms: 3
+Bathrooms: 1
+Neighborhood: Rural
+YearBuilt: 1963
+Price: 114333.69387419600
+: SquareFeet: 1392
+Bedrooms: 5
+Bathrooms: 2
+Neighborhood: Rural
+YearBuilt: 2005
+Price: 225281.32417764900
+: SquareFeet: 1206
+Bedrooms: 2
+Bathrooms: 1
+Neighborhood: Suburb
+YearBuilt: 1983
+Price: 110852.45257182200
+: SquareFeet: 2038
+Bedrooms: 2
+Bathrooms: 3
+Neighborhood: Rural
+YearBuilt: 1950
+Price: 206119.18171087200
+: SquareFeet: 2881
+Bedrooms: 4
+Bathrooms: 1
+Neighborhood: Suburb
+YearBuilt: 1987
+Price: 292218.3734233530
+: SquareFeet: 2577
+Bedrooms: 4
+Bathrooms: 2
+Neighborhood: Suburb
+YearBuilt: 1966
+Price: 209166.2973385370
+: SquareFeet: 1891
+Bedrooms: 2
+Bathrooms: 3
+Neighborhood: Suburb
+YearBuilt: 1965
+Price: 283220.10867648400
+: SquareFeet: 2484
+Bedrooms: 2
+Bathrooms: 3
+Neighborhood: Urban
+YearBuilt: 1997
+Price: 354538.82144245300
+: SquareFeet: 2714
+Bedrooms: 4
+Bathrooms: 3
+Neighborhood: Rural
+YearBuilt: 1999
+Price: 290954.49181524900
+: SquareFeet: 2598
+Bedrooms: 3
+Bathrooms: 3
+Neighborhood: Urban
+YearBuilt: 2020
+Price: 207377.55545532500
+: SquareFeet: 1863
+Bedrooms: 4
+Bathrooms: 3
+Neighborhood: Suburb
+YearBuilt: 1990
+Price: 267934.0925699400
+: SquareFeet: 1742
+Bedrooms: 5
+Bathrooms: 1
+Neighborhood: Urban
+YearBuilt: 1993
+Price: 235034.89983819600
+: 

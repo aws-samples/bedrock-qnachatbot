@@ -1,0 +1,340 @@
+AWSTemplateFormatVersion: '2010-09-09'
+
+Metadata: 
+  AWS::CloudFormation::Interface: 
+    ParameterGroups: 
+      - 
+        Label: 
+          default: "Network Configuration"
+        Parameters: 
+          - VPCID
+          - VPCCidr
+          - SubnetID
+          - MyIPCidr
+      -
+        Label: 
+          default: "StreamlitAppServer"
+        Parameters: 
+          - KeyName
+          - LatestAmiId
+      -
+        Label:
+          default: "S3 Bucket"
+        Parameters:
+          - BucketName
+    ParameterLabels: 
+      VPCID: 
+        default: "Specify the VPC ID where you want your app server deployed"
+
+Parameters:
+  KeyName:
+    Description: Name of an existing EC2 KeyPair to enable SSH access to the instance
+    Type: AWS::EC2::KeyPair::KeyName
+    Default: Streamlit-App-Server-AL-6915
+    ConstraintDescription: Can contain only ASCII characters.
+  LatestAmiId:
+    Type: 'AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>'
+    Default: '/aws/service/ami-amazon-linux-latest/al2023-ami-kernel-default-x86_64'
+  VPCID:
+    Description: VPC ID for Streamlit App Server
+    Type: String
+  SubnetID:
+    Description: Subnet ID for Streamlit App Server 
+    Type: String
+  VPCCidr:
+    Description: VPC CIDR for the Streamlit App Server
+    Type: String
+  MyIPCidr:
+    Description: Provide your IP for SSH to the App Server
+    Type: String
+  BucketName:
+    Description: Provide Name of your S3 Bucket
+    Default: "Not-needed-for-self-paced-lab-in-customer-account"
+    Type: String
+  EC2InstanceName:
+    Description: Provide the Name for your App Server
+    Type: String
+    Default: 'StreamlitApp_Server'
+  EC2RoleName:
+    Description: Provide the Role Name used for this App Server
+    Type: String
+    Default: 'StreamlitAppRole'
+  EC2PolicyName:
+    Description: Provide the Policy Name used for this App Server
+    Type: String
+    Default: 'StreamlitAppAccess'
+
+Mappings:
+  RegionMap:
+    cn-north-1:
+      ipPrefix: 43.196.20.40/29
+    cn-northwest-1:
+      ipPrefix: 43.192.155.8/29
+    us-gov-east-1:
+      ipPrefix: 18.252.4.0/30
+    us-gov-west-1:
+      ipPrefix: 15.200.28.80/30
+    af-south-1:
+      ipPrefix: 13.244.121.196/30
+    ap-east-1:
+      ipPrefix: 43.198.192.104/29
+    ap-northeast-1:
+      ipPrefix: 3.112.23.0/29
+    ap-northeast-2:
+      ipPrefix: 13.209.1.56/29
+    ap-northeast-3:
+      ipPrefix: 15.168.105.160/29
+    ap-south-1:
+      ipPrefix: 13.233.177.0/29
+    ap-south-2:
+      ipPrefix: 18.60.252.248/29
+    ap-southeast-1:
+      ipPrefix: 3.0.5.32/29
+    ap-southeast-2:
+      ipPrefix: 13.239.158.0/29
+    ap-southeast-3:
+      ipPrefix: 43.218.193.64/29
+    ap-northeast-1:
+      ipPrefix: 3.112.23.0/29
+    ap-northeast-2:
+      ipPrefix: 13.209.1.56/29
+    ap-northeast-3:            
+      ipPrefix: 15.168.105.160/29
+    ap-south-1:            
+      ipPrefix: 13.233.177.0/29
+    ap-south-2:            
+      ipPrefix: 18.60.252.248/29
+    ap-southeast-1:            
+      ipPrefix: 3.0.5.32/29
+    ap-southeast-2:            
+      ipPrefix: 13.239.158.0/29
+    ap-southeast-3:            
+      ipPrefix: 43.218.193.64/29
+    ap-southeast-4:            
+      ipPrefix: 16.50.248.80/29
+    ca-central-1:            
+      ipPrefix: 35.183.92.176/29
+    eu-central-1:            
+      ipPrefix: 3.120.181.40/29
+    eu-central-2:            
+      ipPrefix: 16.63.77.8/29
+    eu-north-1:            
+      ipPrefix: 13.48.4.200/30
+    eu-south-1:            
+      ipPrefix: 15.161.135.164/30
+    eu-south-2:            
+      ipPrefix: 18.101.90.48/29
+    eu-west-1:            
+      ipPrefix: 18.202.216.48/29
+    eu-west-2:            
+      ipPrefix: 3.8.37.24/29
+    eu-west-3:            
+      ipPrefix: 35.180.112.80/29
+    il-central-1:            
+      ipPrefix: 51.16.183.224/29
+    me-central-1:            
+      ipPrefix: 3.29.147.40/29
+    me-south-1:            
+      ipPrefix: 16.24.46.56/29
+    sa-east-1:            
+      ipPrefix: 18.228.70.32/29
+    us-east-1:            
+      ipPrefix: 18.206.107.24/29
+    us-east-2:            
+      ipPrefix: 3.16.146.0/29
+    us-west-1:            
+      ipPrefix: 13.52.6.112/29
+    us-west-2:            
+      ipPrefix: 18.237.140.160/29      
+
+Resources:
+
+  StreamlitAppSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Enable SSH access via port 22 from BastionHostSecurityGroup
+      VpcId: !Ref VPCID
+      SecurityGroupIngress:
+      - IpProtocol: tcp
+        FromPort: 22
+        ToPort: 22
+        CidrIp: !Sub '${MyIPCidr}/32'
+      - IpProtocol: tcp
+        FromPort: 8501
+        ToPort: 8501
+        CidrIp: !Sub '${MyIPCidr}/32'
+      - IpProtocol: tcp
+        FromPort: 22
+        ToPort: 22
+        CidrIp: !FindInMap [RegionMap, !Ref "AWS::Region", ipPrefix]
+      SecurityGroupEgress:
+      - CideIp: 0.0.0.0/0
+        IpProtocol: "-1" # Allow all outbound traffic
+
+
+  StreamlitAppServer:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: t3.medium
+      KeyName: !Ref 'KeyName'
+      BlockDeviceMappings:
+        - DeviceName: /dev/xvda
+          Ebs:
+            VolumeType: gp3
+            VolumeSize: '30'
+      IamInstanceProfile: !Ref StreamlitAppServerProfile
+      NetworkInterfaces: 
+      - AssociatePublicIpAddress: 'true'
+        DeviceIndex: '0'
+        GroupSet: [!GetAtt StreamlitAppSecurityGroup.GroupId]
+        SubnetId: !Ref SubnetID
+      ImageId: !Ref LatestAmiId
+      Tags:
+        - Key: 'Name'
+          Value: !Ref 'EC2InstanceName'
+      UserData: 
+        Fn::Base64: 
+          !Sub |
+            #!/bin/bash
+            # Variables
+            yum update -y
+            yum install -y git
+            cd /home/ec2-user
+            sudo -u ec2-user -i echo "Cloning pyenv environment" >> /tmp/userData.log
+            sudo -u ec2-user -i git clone https://github.com/pyenv/pyenv.git /home/ec2-user/.pyenv
+            sudo -u ec2-user -i echo 'export PYENV_ROOT="$HOME/.pyenv"' >> /home/ec2-user/.bash_profile
+            sudo -u ec2-user -i echo 'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"' >> /home/ec2-user/.bash_profile
+            sudo -u ec2-user -i echo 'eval "$(pyenv init -)"' >> /home/ec2-user/.bash_profile
+            sudo -u ec2-user -i mkdir -p /home/ec2-user/pipInstall
+            sudo -u ec2-user -i echo 'export TMPDIR="/home/ec2-user/pipInstall"' >> /home/ec2-user/.bash_profile
+            sudo -u ec2-user -i source /home/ec2-user/.bash_profile
+            sudo -u ec2-user -i echo "pyenv environment setup Done..." >> /tmp/userData.log
+            # Install RPMs needed for install Python 3.10.x and onwards
+            sudo -u ec2-user -i echo "Installing RPMS for 3.10.x" >> /tmp/userData.log
+            yum install -y gcc zlib-devel bzip2 bzip2-devel patch readline-devel sqlite sqlite-devel openssl-devel tk-devel libffi-devel
+            yum install -y libglvnd-glx
+            sudo -u ec2-user -i echo "RPMS installation done..." >> /tmp/userData.log
+            sudo -u ec2-user -i echo "Installing python 3.10" >> /tmp/userData.log
+            sudo -u ec2-user -i pyenv install 3.10
+            #sudo -u ec2-user -i pyenv install 3.11
+            sudo -u ec2-user -i echo "python 3.10.x installation completed..." >> /tmp/userData.log
+            sudo -u ec2-user -i git clone https://<GitHub_PAT>@github.com/anandmandilwar/LOKI_ChatBot.git
+            cd /home/ec2-user/LOKI_ChatBot
+            sudo -u ec2-user -i pyenv global 3.10.13
+            sudo -u ec2-user -i python -m venv LOKIenv
+            sudo -u ec2-user -i source LOKIenv/bin/activate
+            sudo -u ec2-user -i pyenv local 3.10.13
+            sudo -u ec2-user -i echo "Installing application related libraries..." >> /tmp/userData.log
+            sudo -u ec2-user -i pip install -r /home/ec2-user/LOKI_ChatBot/requirements.txt --no-cache-dir
+            sudo -u ec2-user -i echo "Finished running user data...." >> /tmp/userData.log
+            
+
+  StreamlitAppServerRole: 
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument: 
+        Version: 2012-10-17
+        Statement:
+          - Sid: ''
+            Effect: Allow
+            Principal:
+              Service: ec2.amazonaws.com
+            Action: 'sts:AssumeRole'
+      RoleName: !Ref  'EC2RoleName'
+      Description: Role to access services for Streamlit Application
+
+  StreamlitAppServerProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties: 
+      InstanceProfileName: !Join
+                            - '-'
+                            - - 'StreamlitAppProfile'
+                              - !Ref 'AWS::StackName'
+      Roles:
+        - !Ref StreamlitAppServerRole
+
+#====
+# Managed Policy for Streamlit App Server
+#====
+  StreamlitAppManagedPolicy:
+    Type: AWS::IAM::ManagedPolicy
+    DependsOn:  StreamlitAppServerRole
+    Properties: 
+      Description: Managed Policy to access services for Streamlit Application
+      ManagedPolicyName: !Ref 'EC2PolicyName'
+      Path: /
+      PolicyDocument: 
+        Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Action:
+          - 's3:PutObject'
+          - 's3:GetObject'
+          - 'bedrock:InvokeModel'
+          - 'textract:DetectDocumentText'
+          - 'transcribe:GetTranscriptionJob'
+          - 'transcribe:StartTranscriptionJob'
+          - 'transcribe:ListTranscriptionJobs'
+          - 'cloudformation:DescribeStacks'
+          Resource: "*" 
+      Roles: 
+        - "StreamlitAppRole"
+
+  EC2ConnectCustomerManagedPolicy:
+    Type: 'AWS::IAM::ManagedPolicy'
+    DependsOn:  StreamlitAppServerRole
+    Properties:
+      ManagedPolicyName: Ec2CustomerManagedPolicy
+      Description: Customer managed policy for read only access to EC2 instance
+      Path: '/'
+      PolicyDocument: # (required) JSON policy document 
+        Version: '2012-10-17'
+        Statement: # allow read only access to EC2 instance
+          - "Effect": "Allow"
+            "Action": "ec2-instance-connect:SendSSHPublicKey"
+            "Resource": !Join
+                          - ''
+                          - - 'arn:aws:ec2:'
+                            - !Ref AWS::Region
+                            - ':'
+                            - !Ref AWS::AccountId
+                            - ':instance/'
+                            - !Ref StreamlitAppServer
+          - "Effect": "Allow"
+            "Action": ec2:DescribeInstances
+            "Resource": "*"
+      Roles: # attach this policy to the list of existing roles
+          - StreamlitAppRole
+
+#====
+# S3 Bucket 
+#====
+
+  S3Bucket:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: Yes
+        BlockPublicPolicy: Yes
+        IgnorePublicAcls: Yes
+        RestrictPublicBuckets: Yes
+
+
+#========
+Outputs:
+#========
+
+  AppServerSecurityGroupId:
+    Description: The security group id for the Prometheus Server
+    Value: !GetAtt StreamlitAppSecurityGroup.GroupId
+    Export:
+      Name: !Sub "${AWS::StackName}-StreamlitAppSecurityGroup"
+  StreamlitAppInstanceId:
+    Description: InstanceId of the newly created StreamlitApp instance
+    Value: !Ref 'StreamlitAppServer'
+  BucketName:
+    Description: S3 Bucket to hold the artifacts
+    Value: !Ref S3Bucket
+
+
+  
