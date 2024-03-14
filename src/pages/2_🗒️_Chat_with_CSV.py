@@ -149,7 +149,7 @@ if uploaded is not None and uploaded !="":
                 inp=st.text_input("Please enter your question below and hit Submit. Please note that this is not a chat, yet 😉", key="current")
                 submitted = st.form_submit_button("Submit")
 
-            if not submitted: #### This will render the initial state message by VIDIA when no user question has been asked ####
+            if not submitted: #### This will render the initial state message by Loki when no user question has been asked ####
                 with st.container(): #### Define container for the chat
                     render_chat() #### Function renders chat messages based on recorded chat history
             if submitted:
