@@ -132,6 +132,31 @@ def bedrock_llm_call(params, qa_prompt="", temperature=0.1, max_tokens=256,top_p
         output_token = response_body['generation_token_count'] ## This is just dummy number
         words = len(text.split()) ###### count the number of words used
         reason = ""
+    elif 'mistral' in params['model_name'].lower() or 'mixtral' in params['model_name'].lower():
+        prompt = {
+            "prompt":  "[INST] "+qa_prompt + "[/INST]" ,
+            "max_tokens": params['max_len'],
+            "temperature": params['temp'],
+            "top_p": params['top_p'],
+            "top_k": 50
+        }
+
+        prompt=json.dumps(prompt)
+        response = bedrock.invoke_model(
+            body=prompt,
+            modelId= params['endpoint-llm'],
+            accept="application/json",
+            contentType="application/json"
+        )
+
+        body = response.get('body').read().decode('utf-8')
+        response_body = json.loads(body)
+        text = response_body['outputs'][0]['text']
+        #output_token = response_body['generation_token_count'] ## This is just dummy number
+        #output_token = 200
+        output_token = num_tokens_from_string(text,encoding_name="cl100k_base")
+        words = len(text.split()) ###### count the number of words used
+        reason = ""        
 
     return text, output_token, words, reason ###### return the generated text, number of tokens, number of words and reason for stopping the text generation
 
@@ -422,6 +447,7 @@ def talking(info,params): ###### talking function
     initialize_summary_session_state()
     if st.session_state.summary_flag:
         print("Already Summarized")
+        summary_for_talking_points = st.session_state.summary_content
     else:
         summary_for_talking_points = generate_summarized_content(info,params)
         st.session_state.summary_flag = True
