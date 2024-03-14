@@ -1,11 +1,14 @@
-''' This file contains the functions for generating answers to questions and chat using openai'''
-''' This file also contains the functions to generate summaries, key points and questions from a document using openai'''
+''' This file contains the functions for generating answers to questions and chat using Amazon Bedrock'''
+''' This file also contains the functions to generate summaries, key points and questions from a document using Amazon Bedrock'''
 
 import streamlit as st ###### import streamlit library for creating the web app
 import boto3 #### import boto3 so as to Amazon Bedrock
 import json
 from anthropic import Anthropic
 from configparser import ConfigParser ###### import ConfigParser library for reading the config file
+# class from the Langchain library that splits text into smaller chunks based on specified parameters.
+from langchain.text_splitter import CharacterTextSplitter
+import tiktoken #### Import tiktoken to count number of tokens
 '''_________________________________________________________________________________________________________________'''
 
 #### Create config object and read the config file ####
@@ -14,6 +17,18 @@ config_object.read("./loki-config.ini") ###### Read config file
 claude = Anthropic() # for Tokenizer
 '''_________________________________________________________________________________________________________________'''
 
+
+def num_tokens_from_string(string: str, encoding_name="cl100k_base") -> int: #### Function to count number of tokens in a text string ####
+    encoding = tiktoken.get_encoding(encoding_name) #### Initialize encoding ####
+    return len(encoding.encode(string)) #### Return number of tokens in the text string ####
+'''_________________________________________________________________________________________________________________'''
+
+
+def initialize_summary_session_state():
+    if "summary_flag" not in st.session_state:
+        st.session_state.summary_flag = False
+    if "summary_content" not in st.session_state:
+        st.session_state.summary_content = ""
 
 def bedrock_llm_call(params, qa_prompt="", temperature=0.1, max_tokens=256,top_p=0.99,frequency_penalty=1,user_id="test-user"):    
     #bedrock = boto3.client(service_name='bedrock-runtime',region_name='us-east-1',endpoint_url='https://bedrock-runtime.us-east-1.amazonaws.com')
@@ -140,31 +155,9 @@ def q_response(query,doc,params): ###### q_response function
 
 
 
-#### chat_gpt_call function to call the OpenAI API for chat ####
-#### This function takes the following inputs: ####
-#### message_dict: the message dictionary to be used for generating text ####
-#### model: the model to be used for generating text ####
-#### max_tokens: the maximum number of tokens to be used for generating text ####
-#### temperature: the temperature to be used for generating text ####
-#### This function returns the following outputs: ####
-#### response_text: the generated text ####
-#### response_dict: the response dictionary ####
-#### words: the number of words used for generating text ####
-#### total_tokens: the total number of tokens used for generating text ####
-#### response_tokens: the number of tokens used for generating text ####
-def chat_gpt_call(message_dict=[{"role":"user","content":"Hello!"}], model="gpt-3.5-turbo", max_tokens=120,temperature=0.5):
-    response=openai.ChatCompletion.create(model=model, messages=message_dict,max_tokens=max_tokens,temperature=temperature) ###### call the OpenAI ChatCompletion API
-    response_dict=response.choices[0].message ###### get the response dictionary
-    response_text=response_dict.content ###### get the response text
-    words=len(response_text.split()) ###### count the number of words used
-    total_tokens=response.usage.total_tokens ###### count the total number of tokens used
-    response_tokens=response.usage.completion_tokens ###### count the number of tokens used in response
-    return response_text, response_dict, words, total_tokens, response_tokens  ###### return the generated text, response dictionary, number of words, total number of tokens and number of tokens in response
-'''_________________________________________________________________________________________________________________'''
-
 
 def chat_bedrock_call(message_dict=[{"role":"user","content":"Hello!"}], model="anthropic.claude-v2", max_tokens=120,temperature=0.1):
-    bedrock = boto3.client(service_name='bedrock-runtime',region_name='us-east-1',endpoint_url='https://bedrock-runtime.us-east-1.amazonaws.com')
+    bedrock = boto3.client(service_name='bedrock-runtime')
     qa_prompt = message_dict["content"]
     prompt = {
         "prompt": "\n\nHuman:" + qa_prompt + "\n\nAssistant:",
@@ -228,7 +221,7 @@ def create_dict_from_session(): ###### create_dict_from_session function
 
 #### Modified for Bedrock
 def q_response_chat(query,doc,mdict): ###### q_response_chat function
-    prompt=f"Answer the question below only and only from the context provided. Answer in detail and in a friendly, enthusiastic tone. If not in the context, respond in no other words except '100', only and only with the number '100'. Do not add any words to '100'.\n context:{doc}.\nquestion:{query}.\nanswer:" ###### create the prompt asking openai to generate an answer with the question and document as context and '100' as the answer if the answer is not in the context
+    prompt=f"Answer the question below only and only from the context provided. Answer in detail and in a friendly, enthusiastic tone. If not in the context, respond in no other words except '100', only and only with the number '100'. Do not add any words to '100'.\n context:{doc}.\nquestion:{query}.\nanswer:" ###### create the prompt asking Bedrock to generate an answer with the question and document as context and '100' as the answer if the answer is not in the context
     mdict.append({"role":"user","content":prompt}) ###### add the prompt to the message dictionary
     response_text, response_dict, words, total_tokens, response_tokens=chat_bedrock_call(message_dict=mdict) ###### call the chat_gpt_call function
     text_final=response_text ###### create the final answer with the result in the context
@@ -247,6 +240,149 @@ def search_context(db,query): ###### search_context function
 '''_________________________________________________________________________________________________________________'''
 
 
+def summarizer(prompt_data,params):    
+    """
+    This function creates the summary of each individual chunk as well as the final summary.
+    :param prompt_data: This is the prompt along with the respective chunk of text, at the end it contains all summary chunks combined.
+    :return: A summary of the respective chunk of data passed in or the final summary that is a summary of all summary chunks.
+    """
+    bedrock = boto3.client(service_name='bedrock-runtime',region_name=params['Region_Name'])
+
+    if 'claude2' in params['model_name'].lower() or 'claude instant' in params['model_name'].lower() or 'claude' in params['model_name'].lower():
+        
+        prompt = {
+            "prompt": "\n\nHuman:" + prompt_data + "\n\nAssistant:",
+            "max_tokens_to_sample": params['max_len'],
+            "temperature": params['temp'],
+            "top_k": 50,
+            "top_p": params['top_p']
+        }
+        prompt=json.dumps(prompt)
+        input_token = claude.count_tokens(prompt)
+        response = bedrock.invoke_model(
+            body=prompt,
+            modelId= params['endpoint-llm'],
+            accept="application/json",
+            contentType="application/json"
+        )
+        
+        answer=response['body'].read().decode()
+        answer=json.loads(answer)['completion']
+        
+    elif 'ai21-j2-mid' in params['model_name'].lower():
+        prompt={
+          "prompt":  prompt_data,
+          "maxTokens": params['max_len'],
+          "temperature": params['temp'],
+          "topP":  params['top_p'],
+          "stopSequences": ["Human:"],
+          "countPenalty": {"scale": 0 },
+          "presencePenalty": {"scale": 0.5 },
+          "frequencyPenalty": {"scale": 0.8 }
+        }
+        prompt=json.dumps(prompt)
+        response = bedrock.invoke_model(body=prompt,
+                                modelId=params['endpoint-llm'], 
+                                accept="application/json", 
+                                contentType="application/json")
+        answer=response['body'].read().decode() 
+        answer=json.loads(answer)['completions'][0]['data']['text']
+    elif 'command' in params['model_name'].lower():
+        # p is a float with a minimum of 0, a maximum of 1, and a default of 0.75
+        # k is a float with a minimum of 0, a maximum of 500, and a default of 0
+        # max_tokens is an int with a minimum of 1, a maximum of 4096, and a default of 20
+        # num_generations has a minimum of 1, maximum of 5, and default of 1
+        # return_likelihoods defaults to NONE but can be set to GENERATION or ALL to
+        #   return the probability of each token
+        prompt = {
+            "prompt":  prompt_data ,
+            "max_tokens": params['max_len'],
+            "temperature": params['temp'],
+            "k": 50,
+            "p": params['top_p']
+        }
+        prompt=json.dumps(prompt)
+        response = bedrock.invoke_model(
+            body=prompt,
+            modelId= params['endpoint-llm'], # "anthropic.claude-v2",
+            accept="application/json",
+            contentType="application/json"
+        )
+        
+        answer=response['body'].read().decode()
+        answer=json.loads(answer)['generations'][0]['text']
+       
+    elif 'llama2' in params['model_name'].lower():
+        prompt = {
+            "prompt":  "[INST] "+prompt_data + "[/INST]" ,
+            "max_gen_len": params['max_len'],
+            "temperature": params['temp'],
+            "top_p": params['top_p']
+        }
+
+        prompt=json.dumps(prompt)
+        response = bedrock.invoke_model(
+            body=prompt,
+            modelId= params['endpoint-llm'],
+            accept="application/json",
+            contentType="application/json"
+        )
+
+        body = response.get('body').read().decode('utf-8')
+        response_body = json.loads(body)
+        answer = response_body['generation'].strip()
+    elif 'mistral' in params['model_name'].lower() or 'mixtral' in params['model_name'].lower():
+        prompt = {
+            "prompt":  "[INST] "+prompt_data + "[/INST]" ,
+            "max_tokens": params['max_len'],
+            "temperature": params['temp'],
+            "top_p": params['top_p'],
+            "top_k": 50
+        }
+
+        prompt=json.dumps(prompt)
+        response = bedrock.invoke_model(
+            body=prompt,
+            modelId= params['endpoint-llm'],
+            accept="application/json",
+            contentType="application/json"
+        )
+
+        body = response.get('body').read().decode('utf-8')
+        response_body = json.loads(body)
+        answer = response_body['outputs'][0]['text']
+  
+  
+    return answer
+
+
+def generate_summarized_content(info,params): ###### summary function
+    # We need to split the text using Character Text Split such that it should not increase token size
+    text_splitter = CharacterTextSplitter(
+        separator = "\n",
+        chunk_size = 10000,
+        chunk_overlap  = 2000,
+        length_function = len,
+    )
+    texts = text_splitter.create_documents([info])
+    # Creating an empty summary string, as this is where we will append the summary of each chunk
+    summary = ""
+    # looping through each chunk of text we created, passing that into our prompt and generating a summary of that chunk
+    for index, chunk in enumerate(texts):
+        # gathering the text content of that specific chunk
+        chunk_content = chunk.page_content
+        # creating the prompt that will be passed into Bedrock with the text content of the chunk
+        prompt = f"""\n\nHuman: Provide a detailed summary for the chunk of text provided to you:
+        Text: {chunk_content}
+        \n\nAssistant:"""
+        # passing the prompt into the summarizer function to generate the summary of that chunk, and appending it to
+        # the summary string
+        summary += summarizer(prompt,params)
+
+    return summary
+
+'''_________________________________________________________________________________________________________________'''
+
 #### summarize function to generate a summary of a document ####
 #### This function takes the following inputs: ####
 #### info: the document to be summarized ####
@@ -254,12 +390,25 @@ def search_context(db,query): ###### search_context function
 #### This function returns the following outputs: ####
 #### text: the generated summary ####
 def summary(info,params): ###### summary function
-    #prompt="In a 100 words, explain the purpose of the text below:\n"+info+".\n Do not add any pretext or context." ###### create the prompt asking LLM to generate a summary of the document
+    initialize_summary_session_state()
+    if st.session_state.summary_flag:
+        print("Already Summarized")
+        summary = st.session_state.summary_content
+    else:
+        summary = generate_summarized_content(info,params)
+        st.session_state.summary_flag = True
+        st.session_state.summary_content = summary
+    final_summary_prompt = f"""\n\nHuman: You will be given a set of summaries from a document. Create a cohesive 
+    summary from the provided individual summaries. The summary should very crisp and at max 700 wrods. 
+    Summaries: {summary}
+            \n\nAssistant:"""
+    
     prompt="Review the summaries from multiple pieces of a single document below:\n"+info+".\n Merge the summaries into a single coherent and cohesive narrative highlighting all key points and produce the summary in 500 words." ###### create the prompt asking LLM to generate a summary of the document
-    with st.spinner('Summarizing your uploaded document'): ###### wait while openai response is awaited
-        #text, t1, t2, t3=open_ai_call(models,prompt) ###### call the open_ai_call function
-        text, t1, t2, t3=bedrock_llm_call(params,prompt) ###### call the open_ai_call function
-    return text ###### return the generated summary
+    #with st.spinner('Summarizing your uploaded document'): ###### wait while Bedrock response is awaited
+    #    text, t1, t2, t3=bedrock_llm_call(params,prompt) ###### call the bedrock_llm_call function
+    #return text ###### return the generated summary
+    return summarizer(final_summary_prompt,params)
+
 '''_________________________________________________________________________________________________________________'''
 
 
@@ -270,10 +419,9 @@ def summary(info,params): ###### summary function
 #### This function returns the following outputs: ####
 #### text: the generated key points ####
 def talking(info,params): ###### talking function
-    prompt="In short bullet points, extract all the main talking points of the text below:\n"+info+".\nDo not add any pretext or context. Write each bullet in a new line." ###### create the prompt asking openai to generate key points of the document
-    with st.spinner('Extracting the key points'): ###### wait while openai response is awaited
-        #text, t1, t2, t3=open_ai_call(models,prompt) ###### call the open_ai_call function
-        text, t1, t2, t3=bedrock_llm_call(params,prompt) ###### call the open_bedrock_claude_call function
+    prompt="In short bullet points, extract all the main talking points of the text below:\n"+info+".\nDo not add any pretext or context. Write each bullet in a new line." ###### create the prompt asking Bedrock to generate key points of the document
+    with st.spinner('Extracting the key points'): ###### wait while Bedrock response is awaited
+        text, t1, t2, t3=bedrock_llm_call(params,prompt) ###### call the bedrock_llm_call function
     return text ###### return the generated key points
 '''_________________________________________________________________________________________________________________'''
 
@@ -285,10 +433,9 @@ def talking(info,params): ###### talking function
 #### This function returns the following outputs: ####
 #### text: the generated questions ####
 def questions(info,params): ###### questions function
-    prompt="Extract ten questions that can be asked of the text below:\n"+info+".\nDo not add any pretext or context." ###### create the prompt asking openai to generate questions from the document
-    with st.spinner('Generating a few sample questions'): ###### wait while openai response is awaited
-        #text, t1, t2, t3=open_ai_call(models,prompt) ###### call the open_ai_call function
-        text, t1, t2, t3=bedrock_llm_call(params,prompt) ###### call the open_ai_call function
+    prompt="Extract ten questions that can be asked of the text below:\n"+info+".\nDo not add any pretext or context." ###### create the prompt asking Bedrock to generate questions from the document
+    with st.spinner('Generating a few sample questions'): ###### wait while Bedrock response is awaited
+        text, t1, t2, t3=bedrock_llm_call(params,prompt) ###### call the bedrock_llm_call function
     return text ###### return the generated questions
 '''_________________________________________________________________________________________________________________'''
 

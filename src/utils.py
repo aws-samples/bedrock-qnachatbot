@@ -1,5 +1,5 @@
 '''
-utils.py consists of all template, input and other utility functions of vidia
+utils.py consists of all template, input and other utility functions of loki
 '''
 
 import streamlit as st ###### Import Streamlit library
@@ -24,7 +24,9 @@ application_metadata = {
         {'name':'Command', 'endpoint':"cohere.command-text-v14"},
         {'name':'Titan', 'endpoint':"amazon.titan-text-express-v1"},
         {'name':'Llama2-70b', 'endpoint':"meta.llama2-70b-chat-v1"},
-        {'name':'Llama2-13b', 'endpoint':"meta.llama2-13b-chat-v1"}
+        {'name':'Llama2-13b', 'endpoint':"meta.llama2-13b-chat-v1"},
+        {'name':'mistral-7b', 'endpoint':"mistral.mixtral-8x7b-instruct-v0:1"},
+        {'name':'mixtral-8x7b', 'endpoint':"mistral.mixtral-8x7b-instruct-v0:1"}
        ],
     'models-emb':[
         {'name':'Titan', 'endpoint':'amazon.titan-embed-text-v1'},
@@ -207,6 +209,10 @@ def clear(greeting=greeting):
             del st.session_state['pastinp']
         if 'pastresp' in st.session_state:
             del st.session_state['pastresp']
+        if 'summary_flag' in st.session_state:
+            del st.session_state.summary_flag
+        if 'summary_content' in st.session_state:
+             del st.session_state.summary_content
 
         initialize_chat(greeting)
 

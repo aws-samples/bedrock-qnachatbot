@@ -233,12 +233,11 @@ def extract_YT(link): #### Function to extract text from YouTube link ####
 
 
 ####extract_audio function to extract text from audio file
-####uses openai whisper to extract text from audio file
+####uses Amazon Transcribe to extract text from audio file
 ####parameters: "feed" is the audio file
 ####returns: words->number of words, num->0 to indicate embeddings, text->text extracted, tokens->number of tokens from tiktoken
 ####Note: This function is used within check_upload function
 def extract_audio(feed,params): #### Function to extract text from audio file ####
-    #string_data = openai.Audio.transcribe("whisper-1", feed)['text'] #### Extract text from audio file using openai whisper ####
     string_data = upload_audio_file_s3(feed,params)
     words=len(string_data.split()) #### Count number of words in the extracted text ####
     tokens=num_tokens_from_string(string_data,encoding_name="cl100k_base") #### Count number of tokens in the extracted text ####
@@ -317,6 +316,7 @@ def extract_csv_data(feed): #### Function to extract text from image file ####
 ####Embeddings are created once per input and only if the input text is greater than 2500 tokens
 #@st.cache_data #### Cache embeddings to avoid re-embedding ####
 #def create_embeddings(text): #### Function to create embeddings from text ####
+@st.cache_resource
 def create_embeddings(text,params): #### Function to create embeddings from text ####
     with open('temp.txt','w') as f: #### Write text to a temporary file ####
          f.write(text) #### Write text to a temporary file ####
@@ -327,9 +327,10 @@ def create_embeddings(text,params): #### Function to create embeddings from text
     docs = text_splitter.split_documents(document) #### Split document into chunks of 10000 tokens ####
     num_emb=len(docs) #### Count number of embeddings ####
     ## Use Amazon Bedrock Embedding Model
-    bedrock_client= boto3.client(service_name='bedrock-runtime',region_name='us-east-1',endpoint_url='https://bedrock-runtime.us-east-1.amazonaws.com')
+    
     modelId = params['endpoint-emb']
-    embeddings = BedrockEmbeddings(client=bedrock_client,region_name="us-east-1",model_id=modelId,endpoint_url="https://bedrock-runtime.us-east-1.amazonaws.com")
+    embeddings = BedrockEmbeddings(model_id=modelId,region_name=params['Region_Name'])
+    
 
     db = FAISS.from_documents(docs, embeddings) #### Create embeddings from text ####
     return db, num_emb #### Return database with embeddings and number of embeddings ####

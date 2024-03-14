@@ -46,8 +46,7 @@ c1,c2,c3=st.sidebar.columns([1,3,1]) ###### Create columns
 c2.image(logo) ###### Add logo to middle column
 st.sidebar.image(hline) ###### Add horizontal line
 
-#### First Condition - Check if OpenAI Key is present, otherwise open the key input form ####
-#### Removing the OpenAI Key check in favor of using Amazon Bedrock
+
 st.sidebar.image(hline) ###### Add horizontal line
 params = select_models(Page_name) ##### Call Model Selection routine
 input_choice, uploaded=input_selector() ###### Get input choice and input document
@@ -100,7 +99,7 @@ if uploaded is not None and uploaded !="":
                         final_text=q_response(inp,info,params)
                 else:
                     info=string_data
-                    with st.spinner("Scanning document for response..."): #### Wait while openai response is awaited ####
+                    with st.spinner("Scanning document for response..."): #### Wait while Bedrock response is awaited ####
                         final_text=q_response(inp,info,params) #### Gets response to user question. In case the question is out of context, gets general response calling out 'out of context' ####
                 
                     #### This section creates columns for two buttons, to clear chat and to download the chat as history ####
@@ -113,11 +112,12 @@ if uploaded is not None and uploaded !="":
                         chatbot(inp,final_text) #### adds the latest question and response to the session messages and renders the chat ####
 
     with tab2: #### Document Summary Tab ####
-        if token>2500:
-            with st.spinner("Finding most relevant section of the document..."):
-                    info=search_context(db,"The most important section of the document")
-        else:
-            info=string_data
+        #if token>2500:
+        #    with st.spinner("Finding most relevant section of the document..."):
+        #            info=search_context(db,"The most important section of the document")
+        #else:
+        #    info=string_data
+        info=string_data ## pass the entire text for summarization
         with st.form('tab2',clear_on_submit=False):
             choice=st.radio("Select the type of summary you want to see",("Summary","Talking Points","Sample Questions","Extracted Text"),key="tab2",horizontal=True)
             submitted=st.form_submit_button("Submit")
