@@ -403,11 +403,11 @@ def summary(info,params): ###### summary function
     Summaries: {summary}
             \n\nAssistant:"""
     
-    prompt="Review the summaries from multiple pieces of a single document below:\n"+info+".\n Merge the summaries into a single coherent and cohesive narrative highlighting all key points and produce the summary in 500 words." ###### create the prompt asking LLM to generate a summary of the document
-    #with st.spinner('Summarizing your uploaded document'): ###### wait while Bedrock response is awaited
-    #    text, t1, t2, t3=bedrock_llm_call(params,prompt) ###### call the bedrock_llm_call function
-    #return text ###### return the generated summary
-    return summarizer(final_summary_prompt,params)
+    #prompt="Review the summaries from multiple pieces of a single document below:\n"+info+".\n Merge the summaries into a single coherent and cohesive narrative highlighting all key points and produce the summary in 500 words." ###### create the prompt asking LLM to generate a summary of the document
+    with st.spinner('Summarizing your uploaded document'): ###### wait while Bedrock response is awaited
+        text, t1, t2, t3=bedrock_llm_call(params,final_summary_prompt) ###### call the bedrock_llm_call function
+    return text ###### return the generated summary
+    #return summarizer(final_summary_prompt,params)
 
 '''_________________________________________________________________________________________________________________'''
 
@@ -419,7 +419,15 @@ def summary(info,params): ###### summary function
 #### This function returns the following outputs: ####
 #### text: the generated key points ####
 def talking(info,params): ###### talking function
-    prompt="In short bullet points, extract all the main talking points of the text below:\n"+info+".\nDo not add any pretext or context. Write each bullet in a new line." ###### create the prompt asking Bedrock to generate key points of the document
+    initialize_summary_session_state()
+    if st.session_state.summary_flag:
+        print("Already Summarized")
+    else:
+        summary_for_talking_points = generate_summarized_content(info,params)
+        st.session_state.summary_flag = True
+        st.session_state.summary_content = summary_for_talking_points
+
+    prompt="In short bullet points, extract all the main talking points of the text below:\n"+summary_for_talking_points+".\nDo not add any pretext or context. Write each bullet in a new line." ###### create the prompt asking Bedrock to generate key points of the document
     with st.spinner('Extracting the key points'): ###### wait while Bedrock response is awaited
         text, t1, t2, t3=bedrock_llm_call(params,prompt) ###### call the bedrock_llm_call function
     return text ###### return the generated key points
@@ -433,7 +441,15 @@ def talking(info,params): ###### talking function
 #### This function returns the following outputs: ####
 #### text: the generated questions ####
 def questions(info,params): ###### questions function
-    prompt="Extract ten questions that can be asked of the text below:\n"+info+".\nDo not add any pretext or context." ###### create the prompt asking Bedrock to generate questions from the document
+    initialize_summary_session_state()
+    if st.session_state.summary_flag:
+        summary_for_questions_gen = st.session_state.summary_content
+    else:
+        summary_for_questions_gen = generate_summarized_content(info,params)
+        st.session_state.summary_flag = True
+        st.session_state.summary_content = summary_for_questions_gen
+    prompt="Extract ten questions that can be asked of the text below:\n"+summary_for_questions_gen+".\nDo not add any pretext or context." ###### create the prompt asking openai to generate questions from the document
+
     with st.spinner('Generating a few sample questions'): ###### wait while Bedrock response is awaited
         text, t1, t2, t3=bedrock_llm_call(params,prompt) ###### call the bedrock_llm_call function
     return text ###### return the generated questions
