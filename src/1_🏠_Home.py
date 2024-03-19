@@ -130,7 +130,7 @@ if uploaded is not None and uploaded !="":
                     Minutes: {minutes} Seconds: {round(seconds, 2)}"""
                     with st.sidebar:
                         st.header(total_time)
-                    st.write(summary(info,params))
+                    st.write(summary(info,params,token))
                 elif choice=="Talking Points":
                     st.markdown("#### Talking Points")
                     st.write(talking(info,params,token))
