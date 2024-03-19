@@ -12,6 +12,7 @@
 
 
 ###### Import libraries ######
+import time
 import streamlit as st ###### Import Streamlit library
 from configparser import ConfigParser ###### Import ConfigParser library for reading config file to get model, greeting message, etc.
 from PIL import Image ###### Import Image library for loading images
@@ -112,11 +113,7 @@ if uploaded is not None and uploaded !="":
                         chatbot(inp,final_text) #### adds the latest question and response to the session messages and renders the chat ####
 
     with tab2: #### Document Summary Tab ####
-        #if token>2500:
-        #    with st.spinner("Finding most relevant section of the document..."):
-        #            info=search_context(db,"The most important section of the document")
-        #else:
-        #    info=string_data
+
         info=string_data ## pass the entire text for summarization
         with st.form('tab2',clear_on_submit=False):
             choice=st.radio("Select the type of summary you want to see",("Summary","Talking Points","Sample Questions","Extracted Text"),key="tab2",horizontal=True)
@@ -124,13 +121,22 @@ if uploaded is not None and uploaded !="":
             if submitted:
                 if choice=="Summary":
                     st.markdown("#### Summary")
+                    start = time.time()
+                    st.write(summary(info,params,token))
+                    end = time.time()
+                    seconds = int(((end - start) % 60))
+                    minutes = int((end - start) // 60)
+                    total_time = f"""Time taken to generate a summary:
+                    Minutes: {minutes} Seconds: {round(seconds, 2)}"""
+                    with st.sidebar:
+                        st.header(total_time)
                     st.write(summary(info,params))
                 elif choice=="Talking Points":
                     st.markdown("#### Talking Points")
-                    st.write(talking(info,params))
+                    st.write(talking(info,params,token))
                 elif choice=="Sample Questions":
                     st.markdown("#### Sample Questions")
-                    st.write(questions(info,params))
+                    st.write(questions(info,params,token))
                 elif choice=="Extracted Text":
                     st.markdown("#### Extracted Text")
                     st.write(info)
