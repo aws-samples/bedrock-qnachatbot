@@ -81,5 +81,9 @@ streamlit run src/1_🏠_Home.py`
 * `talking()`: Function to generate key points of a document - invoked from the main streamlit Application module.
 * `questions()`: Function to generate questions from a document - invoked from the main streamlit Application module.
 
+## Configuration File
+
+* `loki-config.ini` - Contains logo, images and greeting message for the look and feel of the Streamlit application. 
+
 
 

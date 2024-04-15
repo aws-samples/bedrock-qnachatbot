@@ -24,6 +24,9 @@ import tiktoken #### Import tiktoken to count number of tokens
 import streamlit as st #### Import streamlit to create web app
 import time
 import pandas as pd
+## For YouTube Module
+from youtube_transcript_api.formatters import JSONFormatter ## new added for YoutTube - 4/15
+from youtube_transcript_api import YouTubeTranscriptApi ## new added for YoutTube - 4/15
 
 from configparser import ConfigParser ###### Import ConfigParser library for reading config file to get S3 Bucket and Prefix.
 
@@ -225,6 +228,10 @@ def extract_YT(link): #### Function to extract text from YouTube link ####
     address=link #### Store YouTube link in address variable ####
     loader = YoutubeLoader.from_youtube_url(address, add_video_info=True) #### Load YouTube link using YoutubeLoader ####
     document=loader.load() #### Extract text from YouTube link ####
+    # document[0].metadata['title'] --> Title of the source Video
+    # document[0].metadata['thumbnail_url'] --> Cover page/Screenshot Title of the source Video
+    # document[0].metadata['publish_date'] --> Published Date of the source Video
+    # document[0].metadata['length'] --> Length of the source Video
     text=str(document[0].page_content) #### Convert extracted text to string ####
     words=len(text.split()) #### Count number of words in the extracted text ####
     tokens=num_tokens_from_string(text,encoding_name="cl100k_base") #### Count number of tokens in the extracted text ####

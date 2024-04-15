@@ -20,7 +20,8 @@ def initialize_chat(bot_m=None):
         st.session_state['pastinp']=[]
 
     if 'pastresp' not in st.session_state:
-        st.session_state['pastresp']=[bot_m]  
+        st.session_state['pastresp']=[bot_m]
+
 
 ### Function for rendering chat
 ### Each list of strings is a conversation between the user and the bot
