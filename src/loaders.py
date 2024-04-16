@@ -225,17 +225,27 @@ def extract_page(link): #### Function to extract text from weblink ####
 ####returns: words->number of words, num->0 to indicate embeddings, text->text extracted, tokens->number of tokens from tiktoken
 ####Note: This function is used within check_upload function
 def extract_YT(link): #### Function to extract text from YouTube link ####
-    address=link #### Store YouTube link in address variable ####
-    loader = YoutubeLoader.from_youtube_url(address, add_video_info=True) #### Load YouTube link using YoutubeLoader ####
-    document=loader.load() #### Extract text from YouTube link ####
-    # document[0].metadata['title'] --> Title of the source Video
-    # document[0].metadata['thumbnail_url'] --> Cover page/Screenshot Title of the source Video
-    # document[0].metadata['publish_date'] --> Published Date of the source Video
-    # document[0].metadata['length'] --> Length of the source Video
-    text=str(document[0].page_content) #### Convert extracted text to string ####
-    words=len(text.split()) #### Count number of words in the extracted text ####
-    tokens=num_tokens_from_string(text,encoding_name="cl100k_base") #### Count number of tokens in the extracted text ####
-    return words, 0, text, tokens #### Return number of words, number of embeddings(placeholder), extracted text and number of tokens ####
+    try:
+        address=link #### Store YouTube link in address variable ####
+        loader = YoutubeLoader.from_youtube_url(address, add_video_info=True) #### Load YouTube link using YoutubeLoader ####
+        document=loader.load() #### Extract text from YouTube link ####
+        if document:
+            doc = document[0]
+            transcript = doc.page_content
+            text = transcript
+            words=len(text.split()) #### Count number of words in the extracted text ####
+            tokens=num_tokens_from_string(text,encoding_name="cl100k_base") #### Count number of tokens in the extracted text ####        
+            metadata = document[0].metadata
+            for key, value in metadata.items():
+                print(f"{key}: {value}")
+            return words, 0, text, tokens #### Return number of words, number of embeddings(placeholder), extracted text and number of tokens ####
+        else:
+            print("No document found.")
+            return None
+    except Exception as e:
+        print(f"Failed to load transcript and title from URL {link}: {e}")
+        #pages = loader.load_and_split() ## Added new - 3/7
+        return None
 '''_________________________________________________________________________________________________________________'''
 
 
