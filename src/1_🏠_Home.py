@@ -28,10 +28,6 @@ config_object = ConfigParser()
 config_object.read("loki-config.ini")
 
 #### Initialize variables and reading configuration ####
-logo=Image.open(config_object["IMAGES"]["logo_address"]) #### Logo for the sidebar
-favicon=Image.open(config_object["IMAGES"]["favicon_address"]) #### Favicon
-
-#models=config_object["MODEL"]["model"] ##### model for GPT call
 greeting=config_object["MSG"]["greeting"] ###### initial chat message
 hline=Image.open(config_object["IMAGES"]["hline"]) ###### image for formatting landing screen
 uploaded=None ##### initialize input document to None
@@ -39,14 +35,30 @@ uploaded=None ##### initialize input document to None
 
 
 #### Set Page Config ####
-st.set_page_config(layout="wide", page_icon=favicon, page_title="LOKI") ###### Set page layout, favicon and title
+st.set_page_config(layout="wide", page_title="LOKI") ###### Removed the Page icon
 
 #### Set Logo on top sidebar ####
 st.sidebar.image(hline) ###### Add horizontal line
 c1,c2,c3=st.sidebar.columns([1,3,1]) ###### Create columns
-c2.image(logo) ###### Add logo to middle column
 st.sidebar.image(hline) ###### Add horizontal line
+##
+st.markdown(
+    """
+    <style>
+        [data-testid=stSidebar]{
+            text-align: center;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%;
+        }
+    </style>
+    """, unsafe_allow_html=True
+)
+sidebar_title = '<p style="font-family:Amazon Ember; color:#FF9900; font-size: 30px; "><b>Amazon Bedrock Powered - Q&A ChatBot</b></p>'
+st.sidebar.markdown(sidebar_title, unsafe_allow_html=True)
 
+##
 
 st.sidebar.image(hline) ###### Add horizontal line
 params = select_models(Page_name) ##### Call Model Selection routine
