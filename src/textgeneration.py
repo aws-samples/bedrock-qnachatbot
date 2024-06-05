@@ -31,7 +31,7 @@ def initialize_summary_session_state():
         st.session_state.summary_content = ""
 
 def bedrock_llm_call(params, qa_prompt="", temperature=0.1, max_tokens=256,top_p=0.99,frequency_penalty=1,user_id="test-user"):    
-    #bedrock = boto3.client(service_name='bedrock-runtime',region_name='us-east-1',endpoint_url='https://bedrock-runtime.us-east-1.amazonaws.com')
+
     bedrock = boto3.client(service_name='bedrock-runtime',region_name=params['Region_Name'])
 
     if 'claude2' in params['model_name'].lower() or 'claude instant' in params['model_name'].lower() or 'claude' in params['model_name'].lower():

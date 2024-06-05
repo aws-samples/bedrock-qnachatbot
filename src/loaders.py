@@ -4,12 +4,11 @@
 import os #### Import os to remove image file from Assets folder
 import boto3 #### Import to use Bedrock Emmbedding Model
 import tempfile #### Import tempfile for CSV Data file
-from langchain.document_loaders.csv_loader import CSVLoader
 from datetime import datetime
 
 '''Libraries for Text Data Extraction'''
 
-from langchain_community.document_loaders import TextLoader, YoutubeLoader, AmazonTextractPDFLoader, UnstructuredPowerPointLoader
+from langchain_community.document_loaders import TextLoader, YoutubeLoader, AmazonTextractPDFLoader, UnstructuredPowerPointLoader,CSVLoader
 from langchain_community.document_loaders.image import UnstructuredImageLoader #### Import UnstructuredImageLoader to extract text from image file
 import pdfplumber #### Import pdfplumber to extract text from pdf file
 import pathlib #### Import pathlib to extract file extension
