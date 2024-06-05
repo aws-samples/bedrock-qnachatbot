@@ -169,13 +169,13 @@ def second_column():
 #### this function is called from the main.py file
 def third_column():
             st.markdown("<p style='text-align:center;color:blue;'><u><b>Roadmap & Suggestions</b></u></p>",unsafe_allow_html=True)
-            st.markdown("<p style='color:#5A5A5A;'>🟢 Spreadsheets and Codes as inputs. Ability to handle multiple inputs, complete websites, content repositories etc.</p>",unsafe_allow_html=True)
+            st.markdown("<p style='color:#5A5A5A;'>🟢 Knowledge Bases for Amazon Bedrock.</p>",unsafe_allow_html=True)
+            st.markdown("<p style='color:#5A5A5A;'>🟢 Deploy application as a containerized application using a serverless solution with AWS Fargate.</p>",unsafe_allow_html=True)
             st.write(" ")
-            st.write(" ")
-            st.markdown("<p style='color:#5A5A5A;'>🟢 Analysis of spreadsheets with charts📊 and insights✍. Analysis of other forms of dataframes/datasets.",unsafe_allow_html=True)
+            st.markdown("<p style='color:#5A5A5A;'>🟢 Analysis of spreadsheets with charts📊 and insights✍.",unsafe_allow_html=True)
             st.markdown("<p style='color:#5A5A5A;'>🟢 Use models and embeddings that are 3rd party and hosted in Amazon Sagemaker.",unsafe_allow_html=True)
-            st.markdown("<p style='color:#5A5A5A;'>🟢 Configurable options for other Vector store like Pinecode, Weaviate, ChromaDB, etc.",unsafe_allow_html=True)
-            st.markdown("<p style='color:#5A5A5A;'>🟢 Configurable options for Prompts for the user to select and drive the LLM Response accordingly.",unsafe_allow_html=True)
+            st.markdown("<p style='color:#5A5A5A;'>🟢 Configurable options for other Vector store like OpenSearch Service, Amazon Aurora PostgreSQL, MongoDB Atlas, Weaviate, and Pinecone.",unsafe_allow_html=True)
+            st.markdown("<p style='color:#5A5A5A;'>🟢 Amazon S3 Bucket as the Document Input choice.",unsafe_allow_html=True)
             st.write(" ")
             st.write(" ")
             #st.markdown("<span style='color:#5A5A5A;'>🎯 Please leave your suggestions, issues, features requests, etc. by filling out [this form](https://forms.gle/uxfHYVhUNtGus8J97). <b>You may be surprised with a ☕🍔🍺reward💸!! 😀😀😀</b><span>",unsafe_allow_html=True)
