@@ -195,7 +195,7 @@ Resources:
             sudo -u ec2-user -i echo "Installing python 3.10" >> /tmp/userData.log
             sudo -u ec2-user -i pyenv install 3.10
             sudo -u ec2-user -i echo "python 3.10.x installation completed..." >> /tmp/userData.log
-            sudo -u ec2-user -i git clone https://<GitHub_PAT>@github.com/aws-samples/bedrock-qnachatbot.git
+            sudo -u ec2-user -i git clone https://github.com/aws-samples/bedrock-qnachatbot.git
             cd /home/ec2-user/bedrock-qnachatbot
             sudo -u ec2-user -i pyenv global 3.10.14
             sudo -u ec2-user -i echo "Installing application related libraries..." >> /tmp/userData.log
