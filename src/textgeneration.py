@@ -152,17 +152,40 @@ def bedrock_llm_call(params, qa_prompt="", temperature=0.1, max_tokens=256,top_p
         body = response.get('body').read().decode('utf-8')
         response_body = json.loads(body)
         text = response_body['outputs'][0]['text']
-        #output_token = response_body['generation_token_count'] ## This is just dummy number
-        #output_token = 200
         output_token = num_tokens_from_string(text,encoding_name="cl100k_base")
         words = len(text.split()) ###### count the number of words used
-        reason = ""        
+        reason = ""
+    elif 'titan' in params['model_name'].lower():
+
+        prompt = json.dumps({
+            "inputText": qa_prompt,
+            "textGenerationConfig": {
+                "maxTokenCount": params['max_len'],
+                "stopSequences": [],
+                "temperature": params['temp'],
+                "topP": params['top_p']
+            }
+        })
+
+        response = bedrock.invoke_model(
+            body=prompt,
+            modelId= params['endpoint-llm'],
+            accept="application/json",
+            contentType="application/json"
+        )
+        
+        #==
+        response_body = json.loads(response.get("body").read())
+        for result in response_body['results']:
+            output_token = result['tokenCount']
+            text = result['outputText']
+            reason = result['completionReason']
+        words = len(text.split()) ###### count the number of words used             
 
     return text, output_token, words, reason ###### return the generated text, number of tokens, number of words and reason for stopping the text generation
 
 
 
-### Modified one for Amazon Bedrok
 def q_response(query,doc,params): ###### q_response function    
     prompt=f"""
             Context: {doc}
@@ -181,77 +204,6 @@ def q_response(query,doc,params): ###### q_response function
 
 
 
-def chat_bedrock_call(message_dict=[{"role":"user","content":"Hello!"}], model="anthropic.claude-v2", max_tokens=120,temperature=0.1):
-    bedrock = boto3.client(service_name='bedrock-runtime')
-    qa_prompt = message_dict["content"]
-    prompt = {
-        "prompt": "\n\nHuman:" + qa_prompt + "\n\nAssistant:",
-        "max_tokens_to_sample": max_tokens,
-        "temperature": temperature,
-        "top_k": 50,
-        "top_p": 0.99
-    }
-    prompt=json.dumps(prompt)
-    input_token = claude.count_tokens(prompt)
-    response = bedrock.invoke_model(
-        body=prompt,
-        modelId=model,
-        accept="application/json",
-        contentType="application/json"
-    )
-    answer=response['body'].read().decode()
-    response_dict=json.loads(answer)
-    answer=json.loads(answer)['completion']    
-
-    response_text=answer ###### get the response text
-    words=len(response_text.split()) ###### count the number of words used
-    response_tokens = claude.count_tokens(answer) ###### count the number of tokens used for output
-    total_tokens = input_token + response_tokens ###### count the number of total tokens used
-    
-    return response_text, response_dict, words, total_tokens, response_tokens  ###### return the generated text, response dictionary, number of words, total number of tokens and number of tokens in response
-'''_________________________________________________________________________________________________________________'''
-
-#### create_dict_from_session function to create a message dictionary from the session state to include chat behavior####
-#### This function takes no inputs and works on two session state variables####
-#### pastinp: the list of past user inputs ####
-#### pastresp: the list of past assistant responses
-#### This function returns the following outputs: ####
-#### mdict: the message dictionary ####
-def create_dict_from_session(): ###### create_dict_from_session function
-    mdict=[] ###### initialize the message dictionary
-    if (len(st.session_state['pastinp']))==0: ###### check if the session state is empty
-        mdict=[] ###### if the session state is empty, return an empty message dictionary
-        return mdict ###### return the empty message dictionary
-    elif (len(st.session_state['pastinp']))==1: ###### check if the session state has only one message
-        mdict=  [ ###### if the session state has only one message, create a message dictionary with the message
-                    {"role":"user","content":st.session_state['pastinp'][0]}, 
-                    {"role":"assistant","content":st.session_state['pastresp'][1]} 
-                ]
-        return mdict   ###### return the message dictionary
-    elif (len(st.session_state['pastinp']))==2: ###### check if the session state has only two messages
-        mdict=  [ ###### if the session state has only two messages, create a message dictionary with the messages
-                    {"role":"user","content":st.session_state['pastinp'][0]},
-                    {"role":"assistant","content":st.session_state['pastresp'][1]},
-                    {"role":"user","content":st.session_state['pastinp'][1]},
-                    {"role":"assistant","content":st.session_state['pastresp'][2]}
-                ]
-        return mdict ###### return the message dictionary
-    else: ###### if the session state has more than two messages
-        for i in range(len(st.session_state['pastinp'])-3,len(st.session_state['pastinp'])): ###### loop through the session state to create a message dictionary with the last three messages
-            mdict.append({"role":"user","content":st.session_state['pastinp'][i]}) ###### add the user message to the message dictionary
-            mdict.append({"role":"assistant","content":st.session_state['pastresp'][i+1]}) ###### add the assistant message to the message dictionary
-        return mdict    ###### return the message dictionary
-'''_________________________________________________________________________________________________________________'''
-
-
-#### Modified for Bedrock
-def q_response_chat(query,doc,mdict): ###### q_response_chat function
-    prompt=f"Answer the question below only and only from the context provided. Answer in detail and in a friendly, enthusiastic tone. If not in the context, respond in no other words except '100', only and only with the number '100'. Do not add any words to '100'.\n context:{doc}.\nquestion:{query}.\nanswer:" ###### create the prompt asking Bedrock to generate an answer with the question and document as context and '100' as the answer if the answer is not in the context
-    mdict.append({"role":"user","content":prompt}) ###### add the prompt to the message dictionary
-    response_text, response_dict, words, total_tokens, response_tokens=chat_bedrock_call(message_dict=mdict) ###### call the chat_gpt_call function
-    text_final=response_text ###### create the final answer with the result in the context
-    return text_final ###### return the final answer
-'''_________________________________________________________________________________________________________________'''
 
 #### search_context function to search the database for the most relevant section to the user question ####
 #### This function takes the following inputs: ####
@@ -396,6 +348,32 @@ def summarizer(prompt_data,params,initial_token_count):
             body = response.get('body').read().decode('utf-8')
             response_body = json.loads(body)
             answer = response_body['outputs'][0]['text']
+        elif 'titan' in params['model_name'].lower():
+
+            prompt = json.dumps({
+                "inputText": prompt_data,
+                "textGenerationConfig": {
+                    "maxTokenCount": params['max_len'],
+                    "stopSequences": [],
+                    "temperature": params['temp'],
+                    "topP": params['top_p']
+                }
+            })
+
+            response = bedrock.invoke_model(
+                body=prompt,
+                modelId= params['endpoint-llm'],
+                accept="application/json",
+                contentType="application/json"
+            )
+            
+            #==
+            response_body = json.loads(response.get("body").read())
+            for result in response_body['results']:
+                #output_token = result['tokenCount']
+                text = result['outputText']
+                #reason = result['completionReason']
+            #words = len(text.split()) ###### count the number of words used            
   
   
     return answer

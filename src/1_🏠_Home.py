@@ -19,7 +19,7 @@ from PIL import Image ###### Import Image library for loading images
 import os ###### Import os library for environment variables
 from utils import * ###### Import utility functions
 from loaders import create_embeddings, check_upload ###### Import functions to load input from different sources
-from textgeneration import q_response, q_response_chat, search_context, summary, talking, questions ###### Import functions to generate text from input
+from textgeneration import q_response, search_context, summary, talking, questions ###### Import functions to generate text from input
 from chat import initialize_chat, render_chat, chatbot 
 
 Page_name = st.session_state["page_name"] = "Home"
@@ -101,7 +101,7 @@ if uploaded is not None and uploaded !="":
                 inp=st.text_input("Please enter your question below and hit Submit. Please note that this is not a chat, yet 😉", key="current")
                 submitted = st.form_submit_button("Submit")
 
-            if not submitted: #### This will render the initial state message by VIDIA when no user question has been asked ####
+            if not submitted: #### This will render the initial state message by LOKI when no user question has been asked ####
                 with st.container(): #### Define container for the chat
                     render_chat() #### Function renders chat messages based on recorded chat history
             if submitted:

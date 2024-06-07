@@ -19,7 +19,6 @@ application_metadata = {
     'models-llm':[
         {'name':'Claude2', 'endpoint':"anthropic.claude-v2"},
         {'name':'AI21-J2-mid', 'endpoint':'ai21.j2-mid'},
-        {'name':'Claude', 'endpoint':"anthropic.claude-v1"},
         {'name':'Claude Instant', 'endpoint':"anthropic.claude-instant-v1"},
         {'name':'Command', 'endpoint':"cohere.command-text-v14"},
         {'name':'Titan', 'endpoint':"amazon.titan-text-express-v1"},
@@ -92,21 +91,6 @@ def input_selector():
 
 #### function to display document input options and return the input choice and uploaded file
 #### this function is called from the main.py file
-def input_selector_rfp(Page_name,params):
-    if Page_name == "RFP":
-        input_choice = "Document"
-        with st.sidebar.expander("📁 __Documents__",expanded=True):
-            uploaded=st.file_uploader(label="Select Company profile",type=['pdf','txt'],on_change=clear,accept_multiple_files=True)
-    return input_choice, uploaded
-
-
-def input_selector_csv(Page_name,params):
-    if Page_name == "csvBot" or Page_name == "CUR":
-        input_choice = "CSV"
-        with st.sidebar.expander("📁 __CSV__",expanded=True):
-            uploaded = st.sidebar.file_uploader(label="Upload your CSV file",type="csv",on_change=clear)
-    return input_choice, uploaded
-
 def select_models(page):
      with st.sidebar:
         llm_model_name = st.selectbox("#### :blue[Select LLM Model]", options=MODELS_LLM.keys())
@@ -178,8 +162,6 @@ def third_column():
             st.markdown("<p style='color:#5A5A5A;'>🟢 Amazon S3 Bucket as the Document Input choice.",unsafe_allow_html=True)
             st.write(" ")
             st.write(" ")
-            #st.markdown("<span style='color:#5A5A5A;'>🎯 Please leave your suggestions, issues, features requests, etc. by filling out [this form](https://forms.gle/uxfHYVhUNtGus8J97). <b>You may be surprised with a ☕🍔🍺reward💸!! 😀😀😀</b><span>",unsafe_allow_html=True)
-            #st.markdown("<span style='color:#5A5A5A;'>🎯 I am under regular development. You can also view my source code and contribute [here](https://github.com/abhinav-kimothi/VIDIA.I).</span>", unsafe_allow_html=True)
 
 #### display function for the header display
 def heads():
