@@ -58,7 +58,7 @@ def bedrock_llm_call(params, qa_prompt="", temperature=0.1, max_tokens=256,top_p
         total_token_consumed = input_token + output_token ###### count the number of total tokens used
         words=len(text.split()) ###### count the number of words used
         reason = ""
-    elif 'ai21-j2-mid' in params['model_name'].lower():
+    elif 'ai21-j2-mid' in params['model_name'].lower() or 'ai21-j2-ultra' in params['model_name'].lower():
         prompt={
           "prompt":  qa_prompt,
           "maxTokens": max_tokens,
@@ -74,11 +74,12 @@ def bedrock_llm_call(params, qa_prompt="", temperature=0.1, max_tokens=256,top_p
                                 modelId=params['endpoint-llm'], 
                                 accept="application/json", 
                                 contentType="application/json")
-        answer=response['body'].read().decode() 
-        input_token = len(json.loads(answer)['prompt']['tokens'])
-        output_token = len(json.loads(answer)['completions'][0]['data']['tokens']) ###### count the number of tokens used for output
-        answer=json.loads(answer)['completions'][0]['data']['text']
-        text = answer
+        answer=response['body'].read().decode()
+        answer=json.loads(answer)
+        input_token=len(answer['prompt']['tokens'])
+        output_token=len(answer['completions'][0]['data']['tokens'])
+        answer=answer['completions'][0]['data']['text']
+        text = answer.rstrip()
         total_token_consumed = input_token + output_token ###### count the number of total tokens used
         words=len(text.split()) ###### count the number of words used
         reason = ""
@@ -266,7 +267,7 @@ def summarizer(prompt_data,params,initial_token_count):
             answer=response['body'].read().decode()
             answer=json.loads(answer)['completion']
             
-        elif 'ai21-j2-mid' in params['model_name'].lower():
+        elif 'ai21-j2-mid' in params['model_name'].lower() or 'ai21-j2-ultra' in params['model_name'].lower():
             prompt={
             "prompt":  prompt_data,
             "maxTokens": params['max_len'],
@@ -282,8 +283,12 @@ def summarizer(prompt_data,params,initial_token_count):
                                     modelId=params['endpoint-llm'], 
                                     accept="application/json", 
                                     contentType="application/json")
-            answer=response['body'].read().decode() 
-            answer=json.loads(answer)['completions'][0]['data']['text']
+            answer=response['body'].read().decode()
+            answer=json.loads(answer)
+            #input_token=len(answer['prompt']['tokens'])
+            #output_token=len(answer['completions'][0]['data']['tokens'])
+            answer=answer['completions'][0]['data']['text']
+            answer = answer.rstrip()
         elif 'command' in params['model_name'].lower():
             # p is a float with a minimum of 0, a maximum of 1, and a default of 0.75
             # k is a float with a minimum of 0, a maximum of 500, and a default of 0
@@ -371,7 +376,7 @@ def summarizer(prompt_data,params,initial_token_count):
             response_body = json.loads(response.get("body").read())
             for result in response_body['results']:
                 #output_token = result['tokenCount']
-                text = result['outputText']
+                answer = result['outputText']
                 #reason = result['completionReason']
             #words = len(text.split()) ###### count the number of words used            
   

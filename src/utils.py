@@ -19,6 +19,7 @@ application_metadata = {
     'models-llm':[
         {'name':'Claude2', 'endpoint':"anthropic.claude-v2"},
         {'name':'AI21-J2-mid', 'endpoint':'ai21.j2-mid'},
+        {'name':'AI21-J2-ultra', 'endpoint':'ai21.j2-ultra-v1'},
         {'name':'Claude Instant', 'endpoint':"anthropic.claude-instant-v1"},
         {'name':'Command', 'endpoint':"cohere.command-text-v14"},
         {'name':'Titan', 'endpoint':"amazon.titan-text-express-v1"},
