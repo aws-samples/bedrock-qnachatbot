@@ -468,7 +468,7 @@ def talking(info,params,token): ###### talking function
         print("Already Summarized")
         summary_for_talking_points = st.session_state.summary_content
     else:
-        summary_for_talking_points = generate_summarized_content(info,params)
+        summary_for_talking_points = generate_summarized_content(info,params,token)
         st.session_state.summary_flag = True
         st.session_state.summary_content = summary_for_talking_points
 
@@ -490,7 +490,7 @@ def questions(info,params,token): ###### questions function
     if st.session_state.summary_flag:
         summary_for_questions_gen = st.session_state.summary_content
     else:
-        summary_for_questions_gen = generate_summarized_content(info,params)
+        summary_for_questions_gen = generate_summarized_content(info,params,token)
         st.session_state.summary_flag = True
         st.session_state.summary_content = summary_for_questions_gen
     prompt="Extract ten questions that can be asked of the text below:\n"+summary_for_questions_gen+".\nDo not add any pretext or context." ###### create the prompt asking openai to generate questions from the document
