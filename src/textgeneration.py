@@ -58,30 +58,40 @@ def bedrock_llm_call(params, qa_prompt="", temperature=0.1, max_tokens=256,top_p
         total_token_consumed = input_token + output_token ###### count the number of total tokens used
         words=len(text.split()) ###### count the number of words used
         reason = ""
-    elif 'ai21-j2-mid' in params['model_name'].lower() or 'ai21-j2-ultra' in params['model_name'].lower():
-        prompt={
-          "prompt":  qa_prompt,
-          "maxTokens": max_tokens,
-          "temperature": temperature,
-          "topP":  top_p,
-          "stopSequences": ["Human:"],
-          "countPenalty": {"scale": 0 },
-          "presencePenalty": {"scale": 0.5 },
-          "frequencyPenalty": {"scale": 0.8 }
-        }
-        prompt=json.dumps(prompt)
+    elif 'ai21-j2-mid' in params['model_name'].lower() or 'ai21-j2-ultra' in params['model_name'].lower() :
+        #prompt={
+        #  "prompt":  qa_prompt,
+        #  "maxTokens": max_tokens,
+        #  "temperature": temperature,
+        #  "topP":  top_p,
+        #  "stopSequences": ["Human:"],
+        #  "countPenalty": {"scale": 0 },
+        #  "presencePenalty": {"scale": 0.5 },
+        #  "frequencyPenalty": {"scale": 0.8 }
+        #}
+        prompt = json.dumps({
+            "prompt": qa_prompt, 
+            "maxTokens": max_tokens,
+            "temperature": temperature,
+            "topP": top_p
+        })
+        #prompt=json.dumps(prompt)
         response = bedrock.invoke_model(body=prompt,
                                 modelId=params['endpoint-llm'], 
                                 accept="application/json", 
                                 contentType="application/json")
         answer=response['body'].read().decode()
         answer=json.loads(answer)
+        #print(answer)
         input_token=len(answer['prompt']['tokens'])
         output_token=len(answer['completions'][0]['data']['tokens'])
         answer=answer['completions'][0]['data']['text']
+        #print(answer.rstrip())
         text = answer.rstrip()
+
+        
         total_token_consumed = input_token + output_token ###### count the number of total tokens used
-        words=len(text.split()) ###### count the number of words used
+        words=len(answer.split()) ###### count the number of words used
         reason = ""
     elif 'command' in params['model_name'].lower():
         # p is a float with a minimum of 0, a maximum of 1, and a default of 0.75

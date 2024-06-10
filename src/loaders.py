@@ -235,8 +235,8 @@ def extract_YT(link): #### Function to extract text from YouTube link ####
             words=len(text.split()) #### Count number of words in the extracted text ####
             tokens=num_tokens_from_string(text,encoding_name="cl100k_base") #### Count number of tokens in the extracted text ####        
             metadata = document[0].metadata
-            for key, value in metadata.items():
-                print(f"{key}: {value}")
+            #for key, value in metadata.items():
+            #    print(f"{key}: {value}")
             return words, 0, text, tokens #### Return number of words, number of embeddings(placeholder), extracted text and number of tokens ####
         else:
             print("No document found.")
