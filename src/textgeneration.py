@@ -30,7 +30,7 @@ def initialize_summary_session_state():
     if "summary_content" not in st.session_state:
         st.session_state.summary_content = ""
 
-def bedrock_llm_call(params, qa_prompt="", temperature=0.1, max_tokens=256,top_p=0.99,frequency_penalty=1,user_id="test-user"):    
+def bedrock_llm_call(params, qa_prompt=""):    
 
     bedrock = boto3.client(service_name='bedrock-runtime',region_name=params['Region_Name'])
 
@@ -38,10 +38,10 @@ def bedrock_llm_call(params, qa_prompt="", temperature=0.1, max_tokens=256,top_p
         
         prompt = {
             "prompt": "\n\nHuman:" + qa_prompt + "\n\nAssistant:",
-            "max_tokens_to_sample": max_tokens,
-            "temperature": temperature,
+            "max_tokens_to_sample": params['max_len'],
+            "temperature": params['temp'],
             "top_k": 50,
-            "top_p": top_p
+            "top_p": params['top_p']
         }
         prompt=json.dumps(prompt)
         input_token = claude.count_tokens(prompt)
@@ -71,9 +71,9 @@ def bedrock_llm_call(params, qa_prompt="", temperature=0.1, max_tokens=256,top_p
         #}
         prompt = json.dumps({
             "prompt": qa_prompt, 
-            "maxTokens": max_tokens,
-            "temperature": temperature,
-            "topP": top_p
+            "maxTokens": params['max_len'],
+            "temperature": params['temp'],
+            "topP": params['top_p']
         })
         #prompt=json.dumps(prompt)
         response = bedrock.invoke_model(body=prompt,
