@@ -19,7 +19,7 @@ from PIL import Image ###### Import Image library for loading images
 import os ###### Import os library for environment variables
 from utils import * ###### Import utility functions
 from loaders import create_embeddings, check_upload ###### Import functions to load input from different sources
-from textgeneration import q_response, search_context, summary, talking, questions ###### Import functions to generate text from input
+from textgeneration import generate_response, search_context, summary, generate_insights, generate_questions ###### Import functions to generate text from input
 from chat import initialize_chat, render_chat, chatbot 
 
 Page_name = st.session_state["page_name"] = "Home"
@@ -109,11 +109,11 @@ if uploaded is not None and uploaded !="":
                     with st.spinner("Finding most relevant section of the document..."):
                         info=search_context(db,inp)
                     with st.spinner("Preparing response..."):
-                        final_text=q_response(inp,info,params)
+                        final_text=generate_response(inp,info,params)
                 else:
                     info=string_data
                     with st.spinner("Scanning document for response..."): #### Wait while Bedrock response is awaited ####
-                        final_text=q_response(inp,info,params) #### Gets response to user question. In case the question is out of context, gets general response calling out 'out of context' ####
+                        final_text=generate_response(inp,info,params) #### Gets response to user question. In case the question is out of context, gets general response calling out 'out of context' ####
                 
                     #### This section creates columns for two buttons, to clear chat and to download the chat as history ####
                 col1,col2,col3,col4=st.columns(4)
@@ -128,7 +128,7 @@ if uploaded is not None and uploaded !="":
 
         info=string_data ## pass the entire text for summarization
         with st.form('tab2',clear_on_submit=False):
-            choice=st.radio("Select the type of summary you want to see",("Summary","Talking Points","Sample Questions","Extracted Text"),key="tab2",horizontal=True)
+            choice=st.radio("Select the type of summary you want to see",("Summary","Key Points","Sample Questions","Extracted Text"),key="tab2",horizontal=True)
             submitted=st.form_submit_button("Submit")
             if submitted:
                 if choice=="Summary":
@@ -142,12 +142,12 @@ if uploaded is not None and uploaded !="":
                     Minutes: {minutes} Seconds: {round(seconds, 2)}"""
                     with st.sidebar:
                         st.header(total_time)
-                elif choice=="Talking Points":
-                    st.markdown("#### Talking Points")
-                    st.write(talking(info,params,token))
+                elif choice=="Key Points":
+                    st.markdown("#### Key Points")
+                    st.write(generate_insights(info,params,token))
                 elif choice=="Sample Questions":
                     st.markdown("#### Sample Questions")
-                    st.write(questions(info,params,token))
+                    st.write(generate_questions(info,params,token))
                 elif choice=="Extracted Text":
                     st.markdown("#### Extracted Text")
                     st.write(info)

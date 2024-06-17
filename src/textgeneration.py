@@ -197,7 +197,7 @@ def bedrock_llm_call(params, qa_prompt=""):
 
 
 
-def q_response(query,doc,params): ###### q_response function    
+def generate_response(query,doc,params): ###### generate_response function    
     prompt=f"""
             Context: {doc}
             
@@ -456,13 +456,13 @@ def summary(info,params,token): ###### summary function
 '''_________________________________________________________________________________________________________________'''
 
 
-#### talking function to generate key points of a document ####
+#### generate_insights function to generate key points of a document ####
 #### This function takes the following inputs: ####
 #### info: the document to be summarized ####
 #### models: the model to be used for generating text ####
 #### This function returns the following outputs: ####
 #### text: the generated key points ####
-def talking(info,params,token): ###### talking function
+def generate_insights(info,params,token): ###### generate_insights function
     initialize_summary_session_state()
     if st.session_state.summary_flag:
         print("Already Summarized")
@@ -479,13 +479,13 @@ def talking(info,params,token): ###### talking function
 '''_________________________________________________________________________________________________________________'''
 
 
-#### questions function to generate questions from a document ####
+#### generate_questions function to generate questions from a document ####
 #### This function takes the following inputs: ####
 #### info: the document to be summarized ####
 #### models: the model to be used for generating text ####
 #### This function returns the following outputs: ####
 #### text: the generated questions ####
-def questions(info,params,token): ###### questions function
+def generate_questions(info,params,token): ###### generate_questions function
     initialize_summary_session_state()
     if st.session_state.summary_flag:
         summary_for_questions_gen = st.session_state.summary_content
