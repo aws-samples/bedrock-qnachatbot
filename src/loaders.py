@@ -17,6 +17,7 @@ from bs4 import BeautifulSoup #### Import BeautifulSoup to parse response from w
 '''Libraries for Embeddings'''
 from langchain.text_splitter import RecursiveCharacterTextSplitter #### Import RecursiveCharacterTextSplitter to split text into chunks of 10000 tokens
 from langchain_community.embeddings import BedrockEmbeddings
+from langchain_aws import BedrockEmbeddings
 from langchain_community.vectorstores import FAISS #### Import FAISS to create embeddings
 '''Libraries for Web App'''
 import tiktoken #### Import tiktoken to count number of tokens
@@ -419,9 +420,11 @@ def amazon_transcribe(audio_file_name,bucket,bucket_prefix):
     time.sleep(15)
 
   if result['TranscriptionJob']['TranscriptionJobStatus'] == "COMPLETED":
-    data = pd.read_json(result['TranscriptionJob']['Transcript']['TranscriptFileUri'])
+    #data = pd.read_json(result['TranscriptionJob']['Transcript']['TranscriptFileUri'])
+    data = requests.get(result['TranscriptionJob']['Transcript']['TranscriptFileUri']).json() ## Modified to overcome the API error
   
-  return data['results'][1][0]['transcript']
+  return data['results']['transcripts'][0]['transcript']
+  #return data['results'][1][0]['transcript']
 '''_________________________________________________________________________________________________________________'''
 
 ####This function is used to upload the file to S3 and 
