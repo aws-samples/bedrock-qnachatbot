@@ -60,17 +60,19 @@ greeting=config_object["MSG"]["greeting"] #
 #### function to display document input options and return the input choice and uploaded file
 #### this function is called from the main.py file
 def input_selector():
-
-        input_choice=st.sidebar.radio("#### :blue[Choose the Input Method]",('Document','Weblink','YouTube','Audio','Image','PPT'))
+        ## Removed YouTube as the Input choice due to YY blocking static IP and hence YouTube API throws error when tried from Cloud based VM (like EC2)
+        ## - Anand M 9/20 
+        #input_choice=st.sidebar.radio("#### :blue[Choose the Input Method]",('Document','Weblink','YouTube','Audio','Image','PPT'))
+        input_choice=st.sidebar.radio("#### :blue[Choose the Input Method]",('Document','Weblink','Audio','Image','PPT'))
         if input_choice=="Document":
             with st.sidebar.expander("📁 __Documents__",expanded=True):
                 uploaded=st.file_uploader(label="Select File",type=['pdf','txt'],on_change=clear)
         elif input_choice=="Weblink":
             with st.sidebar.expander("🌐 __Webpage__",expanded=True):
                 uploaded=st.text_input('Enter a weblink',on_change=clear)
-        elif input_choice=="YouTube":
-            with st.sidebar.expander("🎥 __YouTube__",expanded=True):
-                uploaded=st.text_input('Enter a YT link',on_change=clear)
+        #elif input_choice=="YouTube":
+        #    with st.sidebar.expander("🎥 __YouTube__",expanded=True):
+        #        uploaded=st.text_input('Enter a YT link',on_change=clear)
         elif input_choice=="Audio":
             with st.sidebar.expander("🎙 __Audio__",expanded=True):
                 uploaded=st.file_uploader('Select File',type=['mp3', 'mp4', 'mpeg', 'mpga', 'm4a', 'wav'],on_change=clear)
