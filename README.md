@@ -85,5 +85,10 @@ streamlit run src/1_🏠_Home.py`
 
 * `loki-config.ini` - Contains logo, images and greeting message for the look and feel of the Streamlit application. 
 
+## Tips and helpful commands to troubleshoot errors
+1. Run `python -m pip install -r requirements.txt` if your requirements did not install. (If you see an error like `-bash: streamlit: command not found`).
+2. Run `pip install --upgrade pip` to upgrade `pip`, Python's package installer and manager to the latest version 
+3. If you get `-bash: /usr/bin/aws: cannot execute: required file not found` error it means the AWS CLI is not installed or not properly installed on your system.
+
 
 
