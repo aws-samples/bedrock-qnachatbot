@@ -17,7 +17,12 @@ region_name='<AWS_Region>'
 
 application_metadata = {
     'models-llm':[
+        {'name': 'Nova-Pro','endpoint':"us.amazon.nova-pro-v1:0"},
         {'name':'Claude2', 'endpoint':"anthropic.claude-v2"},
+        {'name': 'claude3.5-sonnetV2','endpoint':"us.anthropic.claude-3-5-sonnet-20241022-v2:0"},
+        {'name':'claude3-sonnet', 'endpoint':"anthropic.claude-3-sonnet-20240229-v1:0"},
+        {'name': 'claude3.5-sonnet','endpoint':"anthropic.claude-3-5-sonnet-20240620-v1:0"},
+        
         {'name':'AI21-J2-mid', 'endpoint':'ai21.j2-mid'},
         {'name':'AI21-J2-ultra', 'endpoint':'ai21.j2-ultra-v1'},
         {'name':'Claude Instant', 'endpoint':"anthropic.claude-instant-v1"},
@@ -39,6 +44,7 @@ application_metadata = {
     'opensearch':
         {'es_username':'username', 'es_password':'password', 'domain_endpoint':'<OpenSeach Domain Endpoint>'},    
 }
+
 json.dump(application_metadata, open('application_metadata_complete.json', 'w'))
 
 APP_MD    = json.load(open('application_metadata_complete.json', 'r'))
