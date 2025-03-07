@@ -34,7 +34,7 @@ def bedrock_llm_call(params, qa_prompt=""):
 
     bedrock = boto3.client(service_name='bedrock-runtime',region_name=params['Region_Name'])
 
-    if 'claude2' in params['model_name'].lower() or 'claude instant' in params['model_name'].lower() or 'claude' in params['model_name'].lower():
+    if 'claude2' in params['model_name'].lower() or 'claude instant' in params['model_name'].lower(): #or 'claude' in params['model_name'].lower():
         
         prompt = {
             "prompt": "\n\nHuman:" + qa_prompt + "\n\nAssistant:",
@@ -59,16 +59,7 @@ def bedrock_llm_call(params, qa_prompt=""):
         words=len(text.split()) ###### count the number of words used
         reason = ""
     elif 'ai21-j2-mid' in params['model_name'].lower() or 'ai21-j2-ultra' in params['model_name'].lower() :
-        #prompt={
-        #  "prompt":  qa_prompt,
-        #  "maxTokens": max_tokens,
-        #  "temperature": temperature,
-        #  "topP":  top_p,
-        #  "stopSequences": ["Human:"],
-        #  "countPenalty": {"scale": 0 },
-        #  "presencePenalty": {"scale": 0.5 },
-        #  "frequencyPenalty": {"scale": 0.8 }
-        #}
+
         prompt = json.dumps({
             "prompt": qa_prompt, 
             "maxTokens": params['max_len'],
@@ -193,6 +184,60 @@ def bedrock_llm_call(params, qa_prompt=""):
             reason = result['completionReason']
         words = len(text.split()) ###### count the number of words used             
 
+    elif 'nova' in params['model_name'].lower():
+        messages_for_nova = [
+                {
+                    "role": "user",
+                    "content": [
+                        {
+                            "text": qa_prompt,
+                        }
+                    ]
+                }
+        ]
+        inf_params = {"maxTokens": 300, "topP": 0.1, "temperature": 0.3}
+        additionalModelRequestFields = {
+            "inferenceConfig": {
+                "topK": 40
+            }
+        }
+        response = bedrock.converse(
+                modelId = params['endpoint-llm'], ##"us.amazon.nova-pro-v1:0", ##,
+                messages = messages_for_nova,
+                # system =  [{"text": "You are an AI assistant that excels at summarizing conversations."}],
+                inferenceConfig = inf_params,
+                additionalModelRequestFields = additionalModelRequestFields
+        )
+        
+        output_token = response["usage"]["totalTokens"]
+        text = response["output"]["message"]["content"][0]["text"]
+        words = len(text.split()) ###### count the number of words used
+        reason = response["stopReason"]
+    elif 'claude3' in params['model_name'].lower() or 'claude3.5-sonnetV2' in params['model_name'].lower():
+        messages_for_nova = [
+                {
+                    "role": "user",
+                    "content": [
+                        {
+                            "text": qa_prompt,
+                        }
+                    ]
+                }
+        ]
+        inference_config = {"temperature": params['temp']}
+        additional_model_fields = {"top_k": 40}
+        response = bedrock.converse(
+                modelId = params['endpoint-llm'],
+                messages = messages_for_nova,
+                #system = [{"text": "You are an AI assistant that excels at summarizing conversations."}],
+                inferenceConfig = inference_config,
+                additionalModelRequestFields = additional_model_fields
+        )
+        output_token = response["usage"]["totalTokens"]
+        text = response["output"]["message"]["content"][0]["text"]
+        words = len(text.split()) ###### count the number of words used
+        reason = response["stopReason"]
+        
     return text, output_token, words, reason ###### return the generated text, number of tokens, number of words and reason for stopping the text generation
 
 
@@ -256,7 +301,7 @@ def summarizer(prompt_data,params,initial_token_count):
         answer=json.loads(answer)['completion']
     else:
 
-        if 'claude2' in params['model_name'].lower() or 'claude instant' in params['model_name'].lower() or 'claude' in params['model_name'].lower():
+        if 'claude2' in params['model_name'].lower() or 'claude instant' in params['model_name'].lower():
             
             prompt = {
                 "prompt": "\n\nHuman:" + prompt_data + "\n\nAssistant:",
@@ -389,8 +434,55 @@ def summarizer(prompt_data,params,initial_token_count):
                 answer = result['outputText']
                 #reason = result['completionReason']
             #words = len(text.split()) ###### count the number of words used            
-  
-  
+##
+        elif 'nova' in params['model_name'].lower():
+            messages_for_nova = [
+                    {
+                        "role": "user",
+                        "content": [
+                            {
+                                "text": prompt_data,
+                            }
+                        ]
+                    }
+            ]
+            inf_params = {"maxTokens": 300, "topP": 0.1, "temperature": 0.3}
+            additionalModelRequestFields = {
+                "inferenceConfig": {
+                    "topK": 40
+                }
+            }
+            response = bedrock.converse(
+                    modelId = params['endpoint-llm'], ##"us.amazon.nova-pro-v1:0", ##,
+                    messages = messages_for_nova,
+                    # system =  [{"text": "You are an AI assistant that excels at summarizing conversations."}],
+                    inferenceConfig = inf_params,
+                    additionalModelRequestFields = additionalModelRequestFields
+            )
+            
+            answer = response["output"]["message"]["content"][0]["text"]
+        elif 'claude3' in params['model_name'].lower() or 'claude3.5-sonnetV2' in params['model_name'].lower():
+            messages_for_nova = [
+                    {
+                        "role": "user",
+                        "content": [
+                            {
+                                "text": prompt_data,
+                            }
+                        ]
+                    }
+            ]
+            inference_config = {"temperature": params['temp']}
+            additional_model_fields = {"top_k": 40}
+            response = bedrock.converse(
+                    modelId = params['endpoint-llm'],
+                    messages = messages_for_nova,
+                    #system = [{"text": "You are an AI assistant that excels at summarizing conversations."}],
+                    inferenceConfig = inference_config,
+                    additionalModelRequestFields = additional_model_fields
+            )
+            answer = response["output"]["message"]["content"][0]["text"]
+#  
     return answer
 
 
@@ -499,4 +591,3 @@ def generate_questions(info,params,token): ###### generate_questions function
         text = summarizer(prompt,params,token) ###### call the summarizer function
     return text ###### return the generated questions
 '''_________________________________________________________________________________________________________________'''
-
