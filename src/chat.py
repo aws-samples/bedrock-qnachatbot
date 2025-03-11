@@ -34,13 +34,13 @@ def initialize_chat(bot_m=None):
 def render_chat():
     for i in range(0,len(st.session_state['pastresp'])-1):
         if st.session_state['pastresp'][len(st.session_state['pastresp'])-1-i]:
-            message(st.session_state['pastresp'][len(st.session_state['pastresp'])-1-i],key=i,avatar_style='avataaars')  
+            message(st.session_state['pastresp'][len(st.session_state['pastresp'])-1-i],key=str(i),avatar_style='avataaars')  
         if st.session_state['pastinp'][len(st.session_state['pastinp'])-1-i]:
-            message(st.session_state['pastinp'][len(st.session_state['pastinp'])-1-i], is_user=True,key=i+100,avatar_style='initials', seed="U")
+            message(st.session_state['pastinp'][len(st.session_state['pastinp'])-1-i], is_user=True,key=str(i+100),avatar_style='initials', seed="U")
      
 
     if st.session_state['pastresp'][0]:
-        message(st.session_state['pastresp'][0],key=-99, avatar_style='avataaars')
+        message(st.session_state['pastresp'][0],key=str(-99), avatar_style='avataaars')
 
 ### Function for adding the latest query and LOKI response
 ### to the session state variables pastinp and pastresp
