@@ -237,7 +237,29 @@ def bedrock_llm_call(params, qa_prompt=""):
         text = response["output"]["message"]["content"][0]["text"]
         words = len(text.split()) ###### count the number of words used
         reason = response["stopReason"]
-        
+    elif 'deepseek' in params['model_name'].lower():
+            messages_for_deepseek = [
+                    {
+                        "role": "user",
+                        "content": [
+                            {
+                                "text": qa_prompt,
+                            }
+                        ]
+                    }
+            ]
+            inference_config = {"temperature": params['temp']}
+            additional_model_fields = {"top_k": 40}
+            response = bedrock.converse(
+                    modelId = params['endpoint-llm'],
+                    messages = messages_for_deepseek,
+                    inferenceConfig = inference_config,
+            )
+            output_token = response["usage"]["totalTokens"]
+            text = response["output"]["message"]["content"][0]["text"]
+            words = len(text.split()) ###### count the number of words used
+            reason = response["stopReason"]
+
     return text, output_token, words, reason ###### return the generated text, number of tokens, number of words and reason for stopping the text generation
 
 
@@ -483,6 +505,26 @@ def summarizer(prompt_data,params,initial_token_count):
             )
             answer = response["output"]["message"]["content"][0]["text"]
 #  
+        elif 'deepseek' in params['model_name'].lower():
+            messages_for_deepseek = [
+                    {
+                        "role": "user",
+                        "content": [
+                            {
+                                "text": prompt_data,
+                            }
+                        ]
+                    }
+            ]
+            inference_config = {"temperature": params['temp']}
+            additional_model_fields = {"top_k": 40}
+            response = bedrock.converse(
+                    modelId = params['endpoint-llm'],
+                    messages = messages_for_deepseek,
+                    inferenceConfig = inference_config,
+            )
+            answer = response["output"]["message"]["content"][0]["text"]
+
     return answer
 
 
