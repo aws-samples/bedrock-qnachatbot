@@ -22,7 +22,7 @@ application_metadata = {
         {'name': 'claude3.5-sonnetV2','endpoint':"us.anthropic.claude-3-5-sonnet-20241022-v2:0"},
         {'name':'claude3-sonnet', 'endpoint':"anthropic.claude-3-sonnet-20240229-v1:0"},
         {'name': 'claude3.5-sonnet','endpoint':"anthropic.claude-3-5-sonnet-20240620-v1:0"},
-        
+        {'name': 'deepseek-R1','endpoint':"us.deepseek.r1-v1:0"},
         {'name':'AI21-J2-mid', 'endpoint':'ai21.j2-mid'},
         {'name':'AI21-J2-ultra', 'endpoint':'ai21.j2-ultra-v1'},
         {'name':'Claude Instant', 'endpoint':"anthropic.claude-instant-v1"},
